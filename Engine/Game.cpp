@@ -104,7 +104,6 @@ void Game::UpdateModel()
 				if (fire[y].firey < 395)
 					must = false;
 			}
-		
 		for (int i = 0; i < 10; i++)//Object movement and Border collide Check
 		{
 			object[i].Update();
@@ -160,8 +159,6 @@ void Game::UpdateModel()
 			fcount1 = 0;
 		}
 	}
-	
-	
 }
 void Game::DrawTitleScreen(int x, int y)
 {
