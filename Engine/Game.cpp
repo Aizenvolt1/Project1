@@ -142,7 +142,7 @@ void Game::UpdateModel()
 		}
 		else
 			DesCount = 0;
-		player.DrawCross(255, 255, 255, gfx);
+		
 	}
 	if (isOver==true)//Check if game is over and if yes enable R to replay
 	{
@@ -28519,12 +28519,15 @@ void Game::ComposeFrame()
 		{
 			if (object[i].Destroy == false)//Check if Box is Desstroyed and if yes dont draw box.
 				object[i].DrawBox(0, 255, 0, gfx);
+			if (!isOver)
+			player.DrawCross(255, 255, 255, gfx);
 		}
-	
 	}
 	if (isOver)//Draw End Screen
 	{
 		DrawGameOver(358, 268);
+		player.x = 400;
+		player.y = 550;
 	}
 }
 
