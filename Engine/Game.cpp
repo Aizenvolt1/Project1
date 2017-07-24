@@ -28525,6 +28525,11 @@ void Game::ComposeFrame()
 		DrawGameOver(358, 268);
 		player.x = 400;
 		player.y = 550;
+		for (int i = 0; i < 2; i++)
+		{
+			fire[i].firex = 5;
+			fire[i].firey = 5;
+		}
 	}
 }
 
