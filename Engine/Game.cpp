@@ -52,7 +52,7 @@ void Game::UpdateModel()
 {
 	if (isStarted==true && isOver==false)
 	{
-		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && must == false)//Player Controls
+		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false)//Player Controls
 		{
 			if (fcount >= 0 && fcount < 2)
 			{
@@ -60,7 +60,7 @@ void Game::UpdateModel()
 				player.inhibitV = true;
 				fire[fcount1].firex = player.x;
 				fire[fcount1].firey = player.y;
-				must = true;
+				permitfire = true;
 			}
 			if (fcount <= 1)
 				fcount++;
@@ -102,7 +102,7 @@ void Game::UpdateModel()
 		for (int y = 0; y < 1; y++)//Second Fire enable
 			{
 			if (fire[y].firey < 395)
-				must = false;
+				permitfire= false;
 			}
 		for (int i = 0; i < 10; i++)//Object movement and Border collide Check
 		{

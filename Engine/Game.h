@@ -61,7 +61,7 @@ private:
 	Score s;
 	int fcount = 0;
 	int fcount1 = 0;
-	bool must = false;
+	bool permitfire = false;
 	bool isStarted = false;
 	bool isOver = false;
 	bool Replay = false;
