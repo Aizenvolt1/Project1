@@ -27,6 +27,7 @@
 #include "Object.h"
 #include "Fire.h"
 #include <Random>
+#include "Score.h"
 
 class Game
 {
@@ -57,6 +58,7 @@ private:
 	Player player;
 	Object object[10];
 	Fire fire[2];
+	Score s;
 	int fcount = 0;
 	int fcount1 = 0;
 	bool must = false;

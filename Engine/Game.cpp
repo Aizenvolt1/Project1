@@ -99,10 +99,10 @@ void Game::UpdateModel()
 				fire[i].firey += fire[i].firevy;
 			}
 		}
-			for (int y = 0; y < 1; y++)//Second Fire enable
+		for (int y = 0; y < 1; y++)//Second Fire enable
 			{
-				if (fire[y].firey < 395)
-					must = false;
+			if (fire[y].firey < 395)
+				must = false;
 			}
 		for (int i = 0; i < 10; i++)//Object movement and Border collide Check
 		{
@@ -129,6 +129,7 @@ void Game::UpdateModel()
 	}
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
 	{
+		s.DrawScore(gfx);
 		for (int i = 0; i < 10; i++)
 		{
 			if (object[i].Destroy == true)
@@ -28538,13 +28539,31 @@ void Game::Border_Collide(int &x, int &y, int &vx, int &vy)//Border Collide Func
 {
 	if (x + 10 >= gfx.ScreenWidth)
 	{
-		x = gfx.ScreenWidth - 11;
-		vx = -vx;
+		if (y < 550)
+		{
+			y += 20;
+			x = gfx.ScreenWidth - 11;
+			vx = -vx;
+		}
+		else
+		{
+			x = gfx.ScreenWidth - 11;
+			vx = -vx;
+		}
 	}
 	if (x - 10 < 0)
 	{
-		x = 10;
-		vx = -vx;
+		if (y < 550)
+		{
+			y += 20;
+			x = 10;
+			vx = -vx;
+		}
+		else
+		{
+			x = 10;
+			vx = -vx;
+		}
 	}
 	if (y + 10 >= gfx.ScreenHeight)
 	{
