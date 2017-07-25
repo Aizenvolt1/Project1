@@ -37,6 +37,7 @@ Game::Game( MainWindow& wnd )
 	{
 		object[i].Init(adder, 50, vDist(rng), vDist(rng));
 		adder += 60;
+		enemf[i].EnemyInit(xDist(rng));
 	}
 }
 
@@ -108,11 +109,32 @@ void Game::UpdateModel()
 		{
 			object[i].Update();
 			Border_Collide(object[i].x, object[i].y, object[i].vx, object[i].vy);
+		/*	if (object[i].x == enemf[i].enemyfirex)
+			{
+				enemf[i].createfire = true;
+				enemf[i].enemyfirey = object[i].y;
+			}*/
 			for (int y = 0; y < 10; y++)
 			{
 				object[i].Object_Collide(fire[y]);
 			}
 		}
+		/*for (int i = 0; i < 10; i++)
+		{
+			if (enemf[i].createfire == true)
+			{
+				enemf[i].CreateFire(enemf[i].enemyfirey,gfx);
+				enemf[i].enemyfirey += enemf[i].enemyfirevy;
+				if ((enemf[i].enemyfirex >= player.x - 10) && (enemf[i].enemyfirex <= player.x + 10) && (enemf[i].enemyfirey >= player.y - 10) && (enemf[i].enemyfirey <= player.y + 10))
+				{
+					enemf[i].createfire = false;
+				}
+			}
+		}*/
+		//for (int i = 0; i < 10; i++)
+		//{
+		//	
+		//}
 	}
 	else if(isStarted==false && isOver==false)//Check if game is not Started
 	{

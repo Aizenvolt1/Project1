@@ -28,7 +28,7 @@
 #include "Fire.h"
 #include <Random>
 #include "Score.h"
-
+#include "EnemyFire.h"
 class Game
 {
 public:
@@ -59,6 +59,7 @@ private:
 	Object object[10];
 	Fire fire[2];
 	Score s;
+	EnemyFire enemf[10];
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
