@@ -10,7 +10,7 @@ public:
 	bool firetrig = false;
 	int firex=0;
 	int firey=0;
-	int firevx1= 0;
+	int firevx= 0;
 	int firevy =-5;
 	bool firebor = false;
 };

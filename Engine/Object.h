@@ -12,8 +12,8 @@ public:
 	void DrawBox(int,int, int, Graphics &gfx);
 	int vx = 1;
 	int vy = 0;
-	int x = 400;
-	int y= 5;
+	int x =0;
+	int y= 0;
 	bool collide = false;
 	bool Destroy = false;
 

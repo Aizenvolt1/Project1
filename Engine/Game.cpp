@@ -105,36 +105,37 @@ void Game::UpdateModel()
 			if (fire[y].firey < 395)
 				permitfire= false;
 			}
-		for (int i = 0; i < 10; i++)//Object movement and Border collide Check
+		for (int i = 0; i < 10; i++)//Object movement and Border collide Check and Fire Creation
 		{
 			object[i].Update();
 			Border_Collide(object[i].x, object[i].y, object[i].vx, object[i].vy);
-		/*	if (object[i].x == enemf[i].enemyfirex)
+			if (object[i].x == enemf[i].enemyfirex && object[i].Destroy==false)
 			{
 				enemf[i].createfire = true;
 				enemf[i].enemyfirey = object[i].y;
-			}*/
-			for (int y = 0; y < 10; y++)
+			}
+			for (int y = 0; y < 2; y++)
 			{
 				object[i].Object_Collide(fire[y]);
 			}
 		}
-		/*for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++)//Objects fire movement
 		{
-			if (enemf[i].createfire == true)
+			if (enemf[i].createfire == true && object[i].Destroy == false)
 			{
 				enemf[i].CreateFire(enemf[i].enemyfirey,gfx);
 				enemf[i].enemyfirey += enemf[i].enemyfirevy;
 				if ((enemf[i].enemyfirex >= player.x - 10) && (enemf[i].enemyfirex <= player.x + 10) && (enemf[i].enemyfirey >= player.y - 10) && (enemf[i].enemyfirey <= player.y + 10))
 				{
 					enemf[i].createfire = false;
+					isOver = true;
+				}
+				if (enemf[i].enemyfirey > 570)
+				{
+					enemf[i].createfire = false;
 				}
 			}
-		}*/
-		//for (int i = 0; i < 10; i++)
-		//{
-		//	
-		//}
+		}
 	}
 	else if(isStarted==false && isOver==false)//Check if game is not Started
 	{
@@ -151,7 +152,7 @@ void Game::UpdateModel()
 	}
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
 	{
-		s.DrawScore(gfx);
+		/*s.DrawScore(gfx);*/
 		for (int i = 0; i < 10; i++)
 		{
 			if (object[i].Destroy == true)
@@ -177,6 +178,7 @@ void Game::UpdateModel()
 			{
 				object[i].Init(adder, 50, vDist(rng), vDist(rng));
 				adder += 60;
+				enemf[i].EnemyInit(xDist(rng));
 			}
 			fcount = 0;
 			fcount1 = 0;
@@ -28533,13 +28535,12 @@ void Game::ComposeFrame()
 	{
 		DrawTitleScreen(325, 211);
 	}
-	else if (isStarted)//Draw Boxes
+	else if (isStarted && isOver==false)//Draw Boxes
 	{
 		for (int i = 0; i < 10; i++)
 		{
 			if (object[i].Destroy == false)//Check if Box is Desstroyed and if yes dont draw box.
 				object[i].DrawBox(0, 255, 0, gfx);
-			if (!isOver)
 			player.DrawCross(255, 255, 255, gfx);
 		}
 	}
