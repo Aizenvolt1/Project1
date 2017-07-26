@@ -4,12 +4,11 @@
 #include "Game.h"
 
 
-void Object::Init(int in_x, int in_y, int in_vx, int in_vy)
+void Object::Init(int in_x, int in_y, int in_vx)
 {
 	x = in_x;
 	y = in_y;
 	vx = in_vx;
-	vy = in_vy;
 }
 
 void Object::Object_Collide(Fire &fire)

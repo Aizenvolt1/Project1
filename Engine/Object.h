@@ -6,7 +6,7 @@
 class Object
 {
 public:
-	void Init(int in_x, int in_y, int in_vx, int in_vy);
+	void Init(int in_x, int in_y, int in_vx);
 	void Object_Collide(Fire &fire);
 	void Update();
 	void DrawBox(int,int, int, Graphics &gfx);

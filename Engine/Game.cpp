@@ -33,11 +33,22 @@ Game::Game( MainWindow& wnd )
 	vDist(1,2)
 {
 	
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		object[i].Init(adder, 50, vDist(rng), vDist(rng));
+		if (i <= 9)
+		{
+		object[i].Init(adder, 50, vDist(rng));
 		adder += 60;
 		enemf[i].EnemyInit(xDist(rng));
+		}
+		if (i == 9)
+			adder = 60;
+		else if(i>=10 && i<20)
+		{
+		object[i].Init(adder, 80, vDist(rng));
+		adder += 60;
+		enemf[i].EnemyInit(xDist(rng));
+		}
 	}
 }
 
@@ -105,7 +116,7 @@ void Game::UpdateModel()
 			if (fire[y].firey < 395)
 				permitfire= false;
 			}
-		for (int i = 0; i < 10; i++)//Object movement and Border collide Check and Fire Creation
+		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
 			object[i].Update();
 			Border_Collide(object[i].x, object[i].y, object[i].vx, object[i].vy);
@@ -119,7 +130,7 @@ void Game::UpdateModel()
 				object[i].Object_Collide(fire[y]);
 			}
 		}
-		for (int i = 0; i < 10; i++)//Objects fire movement
+		for (int i = 0; i < 20; i++)//Objects fire movement
 		{
 			if (enemf[i].createfire == true && object[i].Destroy == false)
 			{
@@ -142,7 +153,7 @@ void Game::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
 			isStarted = true;
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 20; i++)
 			{
 				object[i].Destroy = false;
 			}
@@ -153,12 +164,12 @@ void Game::UpdateModel()
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
 	{
 		/*s.DrawScore(gfx);*/
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			if (object[i].Destroy == true)
 				DesCount++;
 		}
-		if (DesCount == 10)
+		if (DesCount == 20)
 		{
 			isOver = true;
 			DesCount = 0;
@@ -174,11 +185,22 @@ void Game::UpdateModel()
 			isStarted = false;
 			isOver = false;
 			adder = 80;
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 20; i++)
 			{
-				object[i].Init(adder, 50, vDist(rng), vDist(rng));
-				adder += 60;
-				enemf[i].EnemyInit(xDist(rng));
+				if (i <= 9)
+				{
+					object[i].Init(adder, 50, vDist(rng));
+					adder += 60;
+					enemf[i].EnemyInit(xDist(rng));
+				}
+				if (i == 9)
+					adder = 60;
+				else if (i >= 11 && i < 20)
+				{
+					object[i].Init(adder, 80, vDist(rng));
+					adder += 60;
+					enemf[i].EnemyInit(xDist(rng));
+				}
 			}
 			fcount = 0;
 			fcount1 = 0;
@@ -28537,7 +28559,7 @@ void Game::ComposeFrame()
 	}
 	else if (isStarted && isOver==false)//Draw Boxes
 	{
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			if (object[i].Destroy == false)//Check if Box is Desstroyed and if yes dont draw box.
 				object[i].DrawBox(0, 255, 0, gfx);

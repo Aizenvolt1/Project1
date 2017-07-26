@@ -9,6 +9,6 @@ public:
 	int enemyfirex;
 	int enemyfirey;
 	int enemyfirevx = 0;
-	int enemyfirevy = 5;
+	int enemyfirevy = 6;
 	bool createfire = false;
 };

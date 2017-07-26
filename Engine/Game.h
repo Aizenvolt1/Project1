@@ -56,10 +56,10 @@ private:
 	bool collide = false;
 	bool Change_Color = false;
 	Player player;
-	Object object[10];
+	Object object[20];
 	Fire fire[2];
 	Score s;
-	EnemyFire enemf[10];
+	EnemyFire enemf[20];
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
