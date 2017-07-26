@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	xDist(20,700),
 	yDist(10,10),
-	vDist(0,1)
+	vDist(30,30)
 {
 	
 	for (int i = 0; i < 10; i++)
@@ -28550,8 +28550,8 @@ void Game::ComposeFrame()
 		player.y = 550;
 		for (int i = 0; i < 2; i++)
 		{
-			fire[i].firex = 5;
-			fire[i].firey = 5;
+			fire[i].firex = 0;
+			fire[i].firey = 0;
 		}
 	}
 }
@@ -28561,9 +28561,9 @@ void Game::Border_Collide(int &x, int &y, int &vx, int &vy)//Border Collide Func
 {
 	if (x + 10 >= gfx.ScreenWidth)
 	{
-		if (y < 550)
+		if (y < 500)
 		{
-			y += 20;
+			y += 30;
 			x = gfx.ScreenWidth - 11;
 			vx = -vx;
 		}
@@ -28575,9 +28575,9 @@ void Game::Border_Collide(int &x, int &y, int &vx, int &vy)//Border Collide Func
 	}
 	if (x - 10 < 0)
 	{
-		if (y < 550)
+		if (y < 500)
 		{
-			y += 20;
+			y += 30;
 			x = 10;
 			vx = -vx;
 		}

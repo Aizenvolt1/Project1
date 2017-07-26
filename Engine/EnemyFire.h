@@ -10,5 +10,5 @@ public:
 	int enemyfirey;
 	int enemyfirevx = 0;
 	int enemyfirevy = 2;
-	int createfire = false;
+	bool createfire = false;
 };
