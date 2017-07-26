@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	xDist(20,700),
 	yDist(10,10),
-	vDist(30,30)
+	vDist(1,2)
 {
 	
 	for (int i = 0; i < 10; i++)
