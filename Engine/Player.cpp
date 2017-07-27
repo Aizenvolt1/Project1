@@ -46,3 +46,47 @@ void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 	gfx.PutPixel(x, 9 + y, r, g, b);
 	gfx.PutPixel(x, 10 + y, r, g, b);
 }
+
+void Player::UpdateP(const Keyboard & kbd)
+{
+	if (kbd.KeyIsPressed(VK_LEFT))
+	{
+		x -= 2;
+	}
+	if (kbd.KeyIsPressed(VK_RIGHT))
+	{
+		x += 2;
+	}	
+}
+
+void Player::SetPxy(int inx,int iny)
+{
+	x = inx;
+	y = iny;
+}
+
+int Player::GetPx()
+{
+	return x;
+}
+
+int Player::GetPy()
+{
+	return y;
+}
+
+void Player::SetPvxy(int invx,int invy)
+{
+	return vx;
+}
+
+void Player::SetInhi(bool inhi)
+{
+	inhibitV=inhi;
+}
+
+bool Player::GetInhi()
+{
+	return inhibitV;
+}
+

@@ -39,7 +39,7 @@ public:
 private:
 	void ComposeFrame();
 	void UpdateModel();
-	void Border_Collide(int &x, int &y, int &vx, int &vy);
+	void Border_Collide(int &x, int &y, int &vx);
 	void DrawTitleScreen(int x, int y);
 	void DrawGameOver(int x, int y);
 private:

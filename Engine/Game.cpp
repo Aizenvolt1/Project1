@@ -69,29 +69,22 @@ void Game::UpdateModel()
 			if (fcount >= 0 && fcount < 2)
 			{
 				fcount1 = fcount;
-				player.inhibitV = true;
-				fire[fcount1].firex = player.x;
-				fire[fcount1].firey = player.y;
+				player.SetInhi(true);
+				fire[fcount1].firex = player.GetPx();
+				fire[fcount1].firey = player.GetPy();
 				permitfire = true;
 			}
 			if (fcount <= 1)
 				fcount++;
 		}
-		if (wnd.kbd.KeyIsPressed(VK_LEFT))
-		{
-			player.x -= 2;
-		}
-		if (wnd.kbd.KeyIsPressed(VK_RIGHT))
-		{
-			player.x += 2;
-		}	//Player Controls
-		Border_Collide(player.x, player.y, player.vx, player.vy);
+		player.UpdateP(wnd.kbd);
+		Border_Collide(player.GetPx, player.GetPy, player.GetPvx);
 		for (int i = 0; i < fcount1 + 1; i++) //Object destruction Check
 		{
 			object[i].Object_Collide(fire[i]);
 		}									//Object destruction Check
 
-		if (player.inhibitV)
+		if (player.GetInhi)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
@@ -119,7 +112,7 @@ void Game::UpdateModel()
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
 			object[i].Update();
-			Border_Collide(object[i].x, object[i].y, object[i].vx, object[i].vy);
+			Border_Collide(object[i].x, object[i].y, object[i].vx);
 			if (object[i].x == enemf[i].enemyfirex && object[i].Destroy==false)
 			{
 				enemf[i].createfire = true;
@@ -136,7 +129,7 @@ void Game::UpdateModel()
 			{
 				enemf[i].CreateFire(enemf[i].enemyfirey,gfx);
 				enemf[i].enemyfirey += enemf[i].enemyfirevy;
-				if ((enemf[i].enemyfirex >= player.x - 10) && (enemf[i].enemyfirex <= player.x + 10) && (enemf[i].enemyfirey >= player.y - 10) && (enemf[i].enemyfirey <= player.y + 10))
+				if ((enemf[i].enemyfirex >= player.GetPx() - 10) && (enemf[i].enemyfirex <= player.GetPx() + 10) && (enemf[i].enemyfirey >= player.GetPy() - 10) && (enemf[i].enemyfirey <= player.GetPy() + 10))
 				{
 					enemf[i].createfire = false;
 					isOver = true;
@@ -28569,8 +28562,7 @@ void Game::ComposeFrame()
 	if (isOver)//Draw End Screen
 	{
 		DrawGameOver(358, 268);
-		player.x = 400;
-		player.y = 550;
+		player.SetPxy(400, 550);
 		for (int i = 0; i < 2; i++)
 		{
 			fire[i].firex = 0;
@@ -28580,7 +28572,7 @@ void Game::ComposeFrame()
 }
 
 
-void Game::Border_Collide(int &x, int &y, int &vx, int &vy)//Border Collide Function
+void Game::Border_Collide(int &x, int &y, int &vx)//Border Collide Function
 {
 	if (x + 10 >= gfx.ScreenWidth)
 	{
@@ -28610,16 +28602,14 @@ void Game::Border_Collide(int &x, int &y, int &vx, int &vy)//Border Collide Func
 			vx = -vx;
 		}
 	}
-	if (y + 10 >= gfx.ScreenHeight)
+	/*if (y + 10 >= gfx.ScreenHeight)
 	{
 		y = gfx.ScreenHeight - 11;
-		vy = -vy;
 	}
 	if (y - 10< 0)
 	{
 		y = 10;
-		vy =-vy;
-	}
+	}*/
 }
 
 
