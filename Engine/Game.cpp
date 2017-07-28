@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	xDist(20,700),
 	yDist(10,10),
-	vDist(1,2)
+	vDist(1,1)
 {
 	
 	for (int i = 0; i < 20; i++)
@@ -77,14 +77,12 @@ void Game::UpdateModel()
 			if (fcount <= 1)
 				fcount++;
 		}
-		player.UpdateP(wnd.kbd);
-		Border_Collide(player.GetPx, player.GetPy, player.GetPvx);
+		player.UpdateP(wnd.kbd,gfx);
 		for (int i = 0; i < fcount1 + 1; i++) //Object destruction Check
 		{
 			object[i].Object_Collide(fire[i]);
 		}									//Object destruction Check
-
-		if (player.GetInhi)
+		if (player.GetInhi()==true)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
@@ -188,7 +186,7 @@ void Game::UpdateModel()
 				}
 				if (i == 9)
 					adder = 60;
-				else if (i >= 11 && i < 20)
+				else if (i >= 10 && i < 20)
 				{
 					object[i].Init(adder, 80, vDist(rng));
 					adder += 60;
@@ -28602,14 +28600,6 @@ void Game::Border_Collide(int &x, int &y, int &vx)//Border Collide Function
 			vx = -vx;
 		}
 	}
-	/*if (y + 10 >= gfx.ScreenHeight)
-	{
-		y = gfx.ScreenHeight - 11;
-	}
-	if (y - 10< 0)
-	{
-		y = 10;
-	}*/
 }
 
 
