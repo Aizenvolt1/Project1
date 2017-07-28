@@ -109,12 +109,11 @@ void Game::UpdateModel()
 			}
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
-			object[i].Update();
-			Border_Collide(object[i].x, object[i].y, object[i].vx);
-			if (object[i].x == enemf[i].enemyfirex && object[i].Destroy==false)
+			object[i].Update(gfx);
+			if (object[i].GetOx() == enemf[i].enemyfirex && object[i].GetDes()==false)
 			{
 				enemf[i].createfire = true;
-				enemf[i].enemyfirey = object[i].y;
+				enemf[i].enemyfirey = object[i].GetOy();
 			}
 			for (int y = 0; y < 2; y++)
 			{
@@ -123,7 +122,7 @@ void Game::UpdateModel()
 		}
 		for (int i = 0; i < 20; i++)//Objects fire movement
 		{
-			if (enemf[i].createfire == true && object[i].Destroy == false)
+			if (enemf[i].createfire == true && object[i].GetDes() == false)
 			{
 				enemf[i].CreateFire(enemf[i].enemyfirey,gfx);
 				enemf[i].enemyfirey += enemf[i].enemyfirevy;
@@ -146,7 +145,7 @@ void Game::UpdateModel()
 			isStarted = true;
 			for (int i = 0; i < 20; i++)
 			{
-				object[i].Destroy = false;
+				object[i].SetDes(false);
 			}
 			fcount = 0;
 			fcount1 = 0;
@@ -157,7 +156,7 @@ void Game::UpdateModel()
 		/*s.DrawScore(gfx);*/
 		for (int i = 0; i < 20; i++)
 		{
-			if (object[i].Destroy == true)
+			if (object[i].GetDes() == true)
 				DesCount++;
 		}
 		if (DesCount == 20)
@@ -28552,7 +28551,7 @@ void Game::ComposeFrame()
 	{
 		for (int i = 0; i < 20; i++)
 		{
-			if (object[i].Destroy == false)//Check if Box is Desstroyed and if yes dont draw box.
+			if (object[i].GetDes() == false)//Check if Box is Desstroyed and if yes dont draw box.
 				object[i].DrawBox(0, 255, 0, gfx);
 			player.DrawCross(255, 255, 255, gfx);
 		}
@@ -28569,38 +28568,6 @@ void Game::ComposeFrame()
 	}
 }
 
-
-void Game::Border_Collide(int &x, int &y, int &vx)//Border Collide Function
-{
-	if (x + 10 >= gfx.ScreenWidth)
-	{
-		if (y < 500)
-		{
-			y += 30;
-			x = gfx.ScreenWidth - 11;
-			vx = -vx;
-		}
-		else
-		{
-			x = gfx.ScreenWidth - 11;
-			vx = -vx;
-		}
-	}
-	if (x - 10 < 0)
-	{
-		if (y < 500)
-		{
-			y += 30;
-			x = 10;
-			vx = -vx;
-		}
-		else
-		{
-			x = 10;
-			vx = -vx;
-		}
-	}
-}
 
 
 

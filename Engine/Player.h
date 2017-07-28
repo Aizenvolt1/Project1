@@ -5,10 +5,9 @@ class Player
 {
 public:
 	void DrawCross(int r, int g, int b, Graphics &gfx);
-	int GetPx();
 	void UpdateP(const Keyboard &kbd,Graphics &gfx);
+	int GetPx();
 	int GetPy();
-	int GetPvx();
 	void SetPxy(int inx, int iny);
 	void SetInhi(bool inhi);
 	bool GetInhi();
