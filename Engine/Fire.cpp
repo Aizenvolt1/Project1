@@ -20,3 +20,33 @@ bool Fire::Border_Collide(Graphics &gfx)
 	else
 		return firebor = false;
 }
+
+int Fire::GetFx()
+{
+	return firex;
+}
+
+int Fire::GetFy()
+{
+	return firey;
+}
+
+bool Fire::GetBor()
+{
+	return firebor;
+}
+
+void Fire::SetFx(int fx)
+{
+	firex = fx;
+}
+
+void Fire::SetFy(int fy)
+{
+	firey = fy;
+}
+
+void Fire::FireUpdate()
+{
+	firey += firevy;
+}

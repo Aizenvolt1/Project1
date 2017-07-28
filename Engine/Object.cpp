@@ -14,7 +14,7 @@ void Object::Init(int in_x, int in_y, int in_vx)
 void Object::Object_Collide(Fire &fire)
 {
 
-	if ((fire.firex >=x - 10) && (fire.firex <= x + 10) && (fire.firey >= y - 10) && (fire.firey <= y + 10))
+	if ((fire.GetFx() >=x - 10) && (fire.GetFx() <= x + 10) && (fire.GetFy() >= y - 10) && (fire.GetFy() <= y + 10))
 	{
 		Destroy = true;
 	}

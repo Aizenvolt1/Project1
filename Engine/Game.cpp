@@ -70,8 +70,8 @@ void Game::UpdateModel()
 			{
 				fcount1 = fcount;
 				player.SetInhi(true);
-				fire[fcount1].firex = player.GetPx();
-				fire[fcount1].firey = player.GetPy();
+				fire[fcount1].SetFx(player.GetPx());
+				fire[fcount1].SetFy(player.GetPy());
 				permitfire = true;
 			}
 			if (fcount <= 1)
@@ -87,8 +87,8 @@ void Game::UpdateModel()
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
 				fire[i].Border_Collide(gfx);//Fire hit Border Check
-				fire[i].DrawFire(fire[i].firex, fire[i].firey, gfx);//Draw Fire Check
-				if (fire[0].firebor == true && fire[1].firebor == true)//Fire reload check
+				fire[i].DrawFire(fire[i].GetFx(), fire[i].GetFy(), gfx);//Draw Fire Check
+				if (fire[0].GetBor() == true && fire[1].GetBor() == true)//Fire reload check
 				{
 					fcount = 0;
 					fcount1 = 0;
@@ -97,14 +97,14 @@ void Game::UpdateModel()
 		}
 		for (int i = 0; i < 2; i++)//Fire movement
 		{
-			if (fire[i].firebor == false)
+			if (fire[i].GetBor() == false)
 			{
-				fire[i].firey += fire[i].firevy;
+				fire[i].FireUpdate();
 			}
 		}
 		for (int y = 0; y < 1; y++)//Second Fire enable
 			{
-			if (fire[y].firey < 395)
+			if (fire[y].GetFy() < 395)
 				permitfire= false;
 			}
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
@@ -28562,8 +28562,8 @@ void Game::ComposeFrame()
 		player.SetPxy(400, 550);
 		for (int i = 0; i < 2; i++)
 		{
-			fire[i].firex = 0;
-			fire[i].firey = 0;
+			fire[i].SetFx(0);
+			fire[i].SetFy(0);
 		}
 	}
 }
