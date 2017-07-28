@@ -110,10 +110,10 @@ void Game::UpdateModel()
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
 			object[i].Update(gfx);
-			if (object[i].GetOx() == enemf[i].enemyfirex && object[i].GetDes()==false)
+			if (object[i].GetOx() == enemf[i].GetEFx() && object[i].GetDes()==false)
 			{
-				enemf[i].createfire = true;
-				enemf[i].enemyfirey = object[i].GetOy();
+				enemf[i].SetCF(true);
+				enemf[i].SetEFy(object[i].GetOy());
 			}
 			for (int y = 0; y < 2; y++)
 			{
@@ -122,18 +122,18 @@ void Game::UpdateModel()
 		}
 		for (int i = 0; i < 20; i++)//Objects fire movement
 		{
-			if (enemf[i].createfire == true && object[i].GetDes() == false)
+			if (enemf[i].GetCF() == true && object[i].GetDes() == false)
 			{
-				enemf[i].CreateFire(enemf[i].enemyfirey,gfx);
-				enemf[i].enemyfirey += enemf[i].enemyfirevy;
-				if ((enemf[i].enemyfirex >= player.GetPx() - 10) && (enemf[i].enemyfirex <= player.GetPx() + 10) && (enemf[i].enemyfirey >= player.GetPy() - 10) && (enemf[i].enemyfirey <= player.GetPy() + 10))
+				enemf[i].CreateFire(enemf[i].GetEFy(),gfx);
+				enemf[i].UpdateEF();
+				if ((enemf[i].GetEFx() >= player.GetPx() - 10) && (enemf[i].GetEFx()<= player.GetPx() + 10) && (enemf[i].GetEFy() >= player.GetPy() - 10) && (enemf[i].GetEFy() <= player.GetPy() + 10))
 				{
-					enemf[i].createfire = false;
+					enemf[i].SetCF(false);
 					isOver = true;
 				}
-				if (enemf[i].enemyfirey > 570)
+				if (enemf[i].GetEFy() > 570)
 				{
-					enemf[i].createfire = false;
+					enemf[i].SetCF(false);
 				}
 			}
 		}
