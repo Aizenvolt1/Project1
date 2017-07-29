@@ -44,9 +44,9 @@ private:
 private:
 	std::random_device rd;
 	std::mt19937 rng;
-	std::uniform_int_distribution<int> xDist;
-	std::uniform_int_distribution<int> yDist;
-	std::uniform_int_distribution<int> vDist;
+	std::uniform_real_distribution<float> xDist;
+	std::uniform_real_distribution<float> yDist;
+	std::uniform_real_distribution<float> vDist;
 	MainWindow& wnd;
 	Graphics gfx;
 	int r_fixed = 255;
@@ -66,5 +66,5 @@ private:
 	bool isOver = false;
 	bool Replay = false;
 	int DesCount = 0;
-	int adder = 80;
+	float adder = 80.0f;
 };

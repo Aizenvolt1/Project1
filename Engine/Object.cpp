@@ -4,7 +4,7 @@
 #include "Game.h"
 
 
-void Object::Init(int in_x, int in_y, int in_vx)
+void Object::Init(float in_x, float in_y, float in_vx)
 {
 	x = in_x;
 	y = in_y;
@@ -29,18 +29,18 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 		{
 			for (int i = -10; i < 11; i++)
 			{
-			gfx.PutPixel(i + x, y+j, r, g, b);
+			gfx.PutPixel(i + (int)x, (int)y+j, r, g, b);
 			}
 		}
 	}
 }
 
-int Object::GetOx()
+float Object::GetOx()
 {
 	return x;
 }
 
-int Object::GetOy()
+float Object::GetOy()
 {
 	return y;
 }
@@ -62,33 +62,33 @@ void Object::Update(Graphics &gfx)
 	
 }
 
-void Object::Border_Collide(int & x, int & y, int & vx,Graphics &gfx)
+void Object::Border_Collide(float & x, float & y, float & vx,Graphics &gfx)
 {
-	if (x + 10 >= gfx.ScreenWidth)
+	if (x + 10.0f >= (float)gfx.ScreenWidth)
 	{
-		if (y < 500)
+		if (y < 500.0f)
 		{
-			y += 30;
-			x = gfx.ScreenWidth - 11;
+			y += 30.0;
+			x = (float)gfx.ScreenWidth - 11.0f;
 			vx = -vx;
 		}
 		else
 		{
-			x = gfx.ScreenWidth - 11;
+			x = (float)gfx.ScreenWidth - 11.0f;
 			vx = -vx;
 		}
 	}
-	if (x - 10 < 0)
+	if (x - 10.0f < 0.f)
 	{
-		if (y < 500)
+		if (y < 500.0f)
 		{
-			y += 30;
-			x = 10;
+			y += 30.0f;
+			x = 10.0f;
 			vx = -vx;
 		}
 		else
 		{
-			x = 10;
+			x = 10.0f;
 			vx = -vx;
 		}
 	}

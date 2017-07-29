@@ -4,18 +4,18 @@
 class EnemyFire
 {
 public:
-	void EnemyInit(int in_x);
-	void CreateFire(int efirey,Graphics &gfx);
-	int GetEFx();
-	int GetEFy();
+	void EnemyInit(float in_x);
+	void CreateFire(float efirey,Graphics &gfx);
+	float GetEFx();
+	float GetEFy();
 	bool GetCF();
 	void SetCF(bool cf);
-	void SetEFx(int efx);
-	void SetEFy(int efy);
+	void SetEFx(float efx);
+	void SetEFy(float efy);
 	void UpdateEF();
 private:
-	int enemyfirex;
-	int enemyfirey;
-	int enemyfirevy = 6;
+	float enemyfirex;
+	float enemyfirey;
+	float enemyfirevy = 6.0f;
 	bool createfire = false;
 };

@@ -28,25 +28,25 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	xDist(20,700),
+	xDist(20.0f,700.0f),
 	yDist(10,10),
-	vDist(1,1)
+	vDist(1.1f,1.8f)
 {
 	
 	for (int i = 0; i < 20; i++)
 	{
 		if (i <= 9)
 		{
-		object[i].Init(adder, 50, vDist(rng));
-		adder += 60;
+		object[i].Init(adder, 50.0f, vDist(rng));
+		adder += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
 		if (i == 9)
-			adder = 60;
+			adder = 60.0f;
 		else if(i>=10 && i<20)
 		{
-		object[i].Init(adder, 80, vDist(rng));
-		adder += 60;
+		object[i].Init(adder, 80.0f, vDist(rng));
+		adder += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
 	}
@@ -110,7 +110,7 @@ void Game::UpdateModel()
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
 			object[i].Update(gfx);
-			if (object[i].GetOx() == enemf[i].GetEFx() && object[i].GetDes()==false)
+			if ((int)object[i].GetOx() == (int)enemf[i].GetEFx() && object[i].GetDes()==false)
 			{
 				enemf[i].SetCF(true);
 				enemf[i].SetEFy(object[i].GetOy());
@@ -179,7 +179,7 @@ void Game::UpdateModel()
 			{
 				if (i <= 9)
 				{
-					object[i].Init(adder, 50, vDist(rng));
+					object[i].Init(adder, 50.0f, vDist(rng));
 					adder += 60;
 					enemf[i].EnemyInit(xDist(rng));
 				}
@@ -187,7 +187,7 @@ void Game::UpdateModel()
 					adder = 60;
 				else if (i >= 10 && i < 20)
 				{
-					object[i].Init(adder, 80, vDist(rng));
+					object[i].Init(adder, 80.0f, vDist(rng));
 					adder += 60;
 					enemf[i].EnemyInit(xDist(rng));
 				}
@@ -28559,11 +28559,11 @@ void Game::ComposeFrame()
 	if (isOver)//Draw End Screen
 	{
 		DrawGameOver(358, 268);
-		player.SetPxy(400, 550);
+		player.SetPxy(400.0f, 550.0f);
 		for (int i = 0; i < 2; i++)
 		{
-			fire[i].SetFx(0);
-			fire[i].SetFy(0);
+			fire[i].SetFx(0.0f);
+			fire[i].SetFy(0.0f);
 		}
 	}
 }

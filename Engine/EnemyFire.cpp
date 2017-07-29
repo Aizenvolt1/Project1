@@ -2,20 +2,20 @@
 #include "Graphics.h"
 
 
-void EnemyFire::CreateFire(int efirey,Graphics &gfx)
+void EnemyFire::CreateFire(float efirey,Graphics &gfx)
 {
 	if (createfire == true)
 	{
-		gfx.PutPixel(enemyfirex, -5 + efirey, 255, 255, 255);
-		gfx.PutPixel(enemyfirex, -4 + efirey, 255, 255, 255);
-		gfx.PutPixel(enemyfirex, -3 + efirey, 255, 255, 255);
+		gfx.PutPixel((int)enemyfirex, -5 + (int)efirey, 255, 255, 255);
+		gfx.PutPixel((int)enemyfirex, -4 + (int)efirey, 255, 255, 255);
+		gfx.PutPixel((int)enemyfirex, -3 + (int)efirey, 255, 255, 255);
 	}
 }
-int EnemyFire::GetEFx()
+float EnemyFire::GetEFx()
 {
 	return enemyfirex;
 }
-int EnemyFire::GetEFy()
+float EnemyFire::GetEFy()
 {
 	return enemyfirey;
 }
@@ -27,10 +27,10 @@ void EnemyFire::SetCF(bool cf)
 {
 	createfire = cf;
 }
-void EnemyFire::SetEFx(int efx)
+void EnemyFire::SetEFx(float efx)
 {
 }
-void EnemyFire::SetEFy(int efy)
+void EnemyFire::SetEFy(float efy)
 {
 	enemyfirey = efy;
 }
@@ -38,7 +38,7 @@ void EnemyFire::UpdateEF()
 {
 	enemyfirey += enemyfirevy;
 }
-void EnemyFire::EnemyInit(int in_x)
+void EnemyFire::EnemyInit(float in_x)
 {
 	enemyfirex = in_x;
 }

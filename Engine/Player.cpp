@@ -3,88 +3,88 @@
 
 void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 {
-	gfx.PutPixel(-10 + x, y, r, g, b);
-	gfx.PutPixel(-9 + x, y, r, g, b);
-	gfx.PutPixel(-8 + x, y, r, g, b);
-	gfx.PutPixel(-7 + x, y, r, g, b);
-	gfx.PutPixel(-6 + x, y, r, g, b);
-	gfx.PutPixel(-5 + x, y, r, g, b);
-	gfx.PutPixel(-4 + x, y, r, g, b);
-	gfx.PutPixel(-3 + x, y, r, g, b);
-	gfx.PutPixel(-2 + x, y, r, g, b);
-	gfx.PutPixel(-1 + x, y, r, g, b);
-	gfx.PutPixel(0 + x, y, r, g, b);
-	gfx.PutPixel(1 + x, y, r, g, b);
-	gfx.PutPixel(2 + x, y, r, g, b);
-	gfx.PutPixel(3 + x, y, r, g, b);
-	gfx.PutPixel(4 + x, y, r, g, b);
-	gfx.PutPixel(5 + x, y, r, g, b);
-	gfx.PutPixel(6 + x, y, r, g, b);
-	gfx.PutPixel(7 + x, y, r, g, b);
-	gfx.PutPixel(8 + x, y, r, g, b);
-	gfx.PutPixel(9 + x, y, r, g, b);
-	gfx.PutPixel(10 + x, y, r, g, b);
-	gfx.PutPixel(x, -10 + y, r, g, b);
-	gfx.PutPixel(x, -9 + y, r, g, b);
-	gfx.PutPixel(x, -8 + y, r, g, b);
-	gfx.PutPixel(x, -7 + y, r, g, b);
-	gfx.PutPixel(x, -6 + y, r, g, b);
-	gfx.PutPixel(x, -5 + y, r, g, b);
-	gfx.PutPixel(x, -4 + y, r, g, b);
-	gfx.PutPixel(x, -3 + y, r, g, b);
-	gfx.PutPixel(x, -2 + y, r, g, b);
-	gfx.PutPixel(x, -1 + y, r, g, b);
-	gfx.PutPixel(x, 0 + y, r, g, b);
-	gfx.PutPixel(x, 1 + y, r, g, b);
-	gfx.PutPixel(x, 2 + y, r, g, b);
-	gfx.PutPixel(x, 3 + y, r, g, b);
-	gfx.PutPixel(x, 4 + y, r, g, b);
-	gfx.PutPixel(x, 5 + y, r, g, b);
-	gfx.PutPixel(x, 6 + y, r, g, b);
-	gfx.PutPixel(x, 7 + y, r, g, b);
-	gfx.PutPixel(x, 8 + y, r, g, b); 
-	gfx.PutPixel(x, 9 + y, r, g, b);
-	gfx.PutPixel(x, 10 + y, r, g, b);
+	gfx.PutPixel(-10 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-9+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-8+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-7+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-6+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-5+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-4+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-3+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-2+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(-1+ (int)x, (int)y, r, g, b);
+	gfx.PutPixel(0 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(1 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(2 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(3 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(4 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(5 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(6 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(7 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(8 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(9 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel(10 + (int)x, (int)y, r, g, b);
+	gfx.PutPixel((int)x, -10 + (int)y, r, g, b);
+	gfx.PutPixel((int)x, -9+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -8+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -7+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -6+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -5+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -4+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -3+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -2+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, -1+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 0+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 1+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 2+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 3+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 4+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 5+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 6+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 7+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 8+ (int)y, r, g, b); 
+	gfx.PutPixel((int)x, 9+ (int)y, r, g, b);
+	gfx.PutPixel((int)x, 10+ (int)y, r, g, b);
 }
 
 void Player::UpdateP(const Keyboard & kbd,Graphics &gfx)
 {
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		if (x - 10 <0)
+		if (x - 10.0f <0.0f)
 		{
-			x = 11;
+			x = 11.0f;
 		}
 		else if(x-10>0)
 		{
-			x -= 2;
+			x -= 2.0f;
 		}
 	}
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		if (x + 10 >= gfx.ScreenWidth)
+		if (x + 10.0f >= gfx.ScreenWidth)
 		{
 			x = gfx.ScreenWidth - 10;
 		}
-		else if(x + 10 < gfx.ScreenWidth-3)
+		else if(x + 10.0f < gfx.ScreenWidth-3)
 		{
-			x += 2;
+			x += 2.0f;
 		}
 	}	
 }
 
-void Player::SetPxy(int inx,int iny)
+void Player::SetPxy(float inx,float iny)
 {
 	x = inx;
 	y = iny;
 }
 
-int Player::GetPx()
+float Player::GetPx()
 {
 	return x;
 }
 
-int Player::GetPy()
+float Player::GetPy()
 {
 	return y;
 }

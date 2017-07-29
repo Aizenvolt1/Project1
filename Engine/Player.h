@@ -6,15 +6,15 @@ class Player
 public:
 	void DrawCross(int r, int g, int b, Graphics &gfx);
 	void UpdateP(const Keyboard &kbd,Graphics &gfx);
-	int GetPx();
-	int GetPy();
-	void SetPxy(int inx, int iny);
+	float GetPx();
+	float GetPy();
+	void SetPxy(float inx, float iny);
 	void SetInhi(bool inhi);
 	bool GetInhi();
 private:
-	int x = 400;
-	int y = 550;
-	int vx = 0;
-	int vy = 0;
+	float x = 400.0f;
+	float y = 550.0f;
+	float vx = 0.0f;
+	float vy = 0.0f;
 	bool inhibitV = false;
 };

@@ -5,17 +5,17 @@
 class Fire
 {
 public:
-	void Fire::DrawFire(int x, int y, Graphics &gfx);
+	void Fire::DrawFire(float x, float y, Graphics &gfx);
 	bool Fire::Border_Collide(Graphics &gfx);
-	int GetFx();
-	int GetFy();
+	float GetFx();
+	float GetFy();
 	bool GetBor();
-	void SetFx(int fx);
-	void SetFy(int fy);
+	void SetFx(float fx);
+	void SetFy(float fy);
 	void FireUpdate();
 private:
-	int firex=0;
-	int firey=0;
-	int firevy =-5;
+	float firex=0.0f;
+	float firey=0.0f;
+	float firevy =-5.0f;
 	bool firebor = false;
 };
