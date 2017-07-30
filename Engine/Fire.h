@@ -12,7 +12,7 @@ public:
 	bool GetBor();
 	void SetFx(float fx);
 	void SetFy(float fy);
-	void FireUpdate();
+	void FireUpdate(float dt);
 private:
 	float firex=0.0f;
 	float firey=0.0f;

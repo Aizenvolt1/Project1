@@ -46,7 +46,7 @@ void Fire::SetFy(float fy)
 	firey = fy;
 }
 
-void Fire::FireUpdate()
+void Fire::FireUpdate(float dt)
 {
-	firey += firevy;
+	firey += firevy*dt*60.0f;
 }

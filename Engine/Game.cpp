@@ -23,6 +23,7 @@
 #include "Object.h"
 #include "Graphics.h"
 #include <random>
+#include <chrono>
 
 Game::Game( MainWindow& wnd )
 	:
@@ -62,6 +63,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
 	if (isStarted==true && isOver==false)
 	{
 		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false)//Player Controls
@@ -77,7 +79,7 @@ void Game::UpdateModel()
 			if (fcount <= 1)
 				fcount++;
 		}
-		player.UpdateP(wnd.kbd,gfx);
+		player.UpdateP(wnd.kbd,gfx,dt);
 		for (int i = 0; i < fcount1 + 1; i++) //Object destruction Check
 		{
 			object[i].Object_Collide(fire[i]);
@@ -99,7 +101,7 @@ void Game::UpdateModel()
 		{
 			if (fire[i].GetBor() == false)
 			{
-				fire[i].FireUpdate();
+				fire[i].FireUpdate(dt);
 			}
 		}
 		for (int y = 0; y < 1; y++)//Second Fire enable
@@ -109,7 +111,7 @@ void Game::UpdateModel()
 			}
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
 		{
-			object[i].Update(gfx);
+			object[i].Update(gfx,dt);
 			if ((int)object[i].GetOx() == (int)enemf[i].GetEFx() && object[i].GetDes()==false)
 			{
 				enemf[i].SetCF(true);
@@ -125,13 +127,13 @@ void Game::UpdateModel()
 			if (enemf[i].GetCF() == true && object[i].GetDes() == false)
 			{
 				enemf[i].CreateFire(enemf[i].GetEFy(),gfx);
-				enemf[i].UpdateEF();
-				if ((enemf[i].GetEFx() >= player.GetPx() - 10) && (enemf[i].GetEFx()<= player.GetPx() + 10) && (enemf[i].GetEFy() >= player.GetPy() - 10) && (enemf[i].GetEFy() <= player.GetPy() + 10))
+				enemf[i].UpdateEF(dt);
+				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
 				{
 					enemf[i].SetCF(false);
 					isOver = true;
 				}
-				if (enemf[i].GetEFy() > 570)
+				if (enemf[i].GetEFy() > 570.0f)
 				{
 					enemf[i].SetCF(false);
 				}

@@ -47,17 +47,17 @@ void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 	gfx.PutPixel((int)x, 10+ (int)y, r, g, b);
 }
 
-void Player::UpdateP(const Keyboard & kbd,Graphics &gfx)
+void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt)
 {
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		if (x - 10.0f <0.0f)
+		if (x - 10.0f <=2.0f)
 		{
 			x = 11.0f;
 		}
 		else if(x-10>0)
 		{
-			x -= 2.0f;
+			x -= 2.0f*dt*60.0f;
 		}
 	}
 	if (kbd.KeyIsPressed(VK_RIGHT))
@@ -68,7 +68,7 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx)
 		}
 		else if(x + 10.0f < (float)gfx.ScreenWidth-3.0f)
 		{
-			x += 2.0f;
+			x += 2.0f*dt*60.0f;
 		}
 	}	
 }

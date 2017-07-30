@@ -5,7 +5,7 @@ class Player
 {
 public:
 	void DrawCross(int r, int g, int b, Graphics &gfx);
-	void UpdateP(const Keyboard &kbd,Graphics &gfx);
+	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt);
 	float GetPx();
 	float GetPy();
 	void SetPxy(float inx, float iny);

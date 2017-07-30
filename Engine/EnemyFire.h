@@ -12,7 +12,7 @@ public:
 	void SetCF(bool cf);
 	void SetEFx(float efx);
 	void SetEFy(float efy);
-	void UpdateEF();
+	void UpdateEF(float dt);
 private:
 	float enemyfirex;
 	float enemyfirey;

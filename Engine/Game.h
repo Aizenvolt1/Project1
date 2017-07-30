@@ -29,6 +29,7 @@
 #include <Random>
 #include "Score.h"
 #include "EnemyFire.h"
+#include "FrameTimer.h"
 class Game
 {
 public:
@@ -59,6 +60,7 @@ private:
 	Fire fire[2];
 	Score s;
 	EnemyFire enemf[20];
+	FrameTimer ft;
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;

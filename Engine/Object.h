@@ -7,7 +7,7 @@ class Object
 public:
 	void Init(float in_x, float in_y, float in_vx);
 	void Object_Collide(Fire &fire);
-	void Update(Graphics &gfx);
+	void Update(Graphics &gfx,float dt);
 	void Border_Collide(float &x, float &y, float &vx,Graphics &gfx);
 	void DrawBox(int,int, int, Graphics &gfx);
 	float GetOx();

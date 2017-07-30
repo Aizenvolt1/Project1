@@ -55,9 +55,9 @@ void Object::SetDes(bool setdes)
 	Destroy = setdes;
 }
 
-void Object::Update(Graphics &gfx)
+void Object::Update(Graphics &gfx,float dt)
 {
-	x += vx;
+	x += vx*dt*60.0f;
 	Border_Collide(x, y, vx,gfx);
 	
 }

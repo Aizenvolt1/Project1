@@ -34,9 +34,9 @@ void EnemyFire::SetEFy(float efy)
 {
 	enemyfirey = efy;
 }
-void EnemyFire::UpdateEF()
+void EnemyFire::UpdateEF(float dt)
 {
-	enemyfirey += enemyfirevy;
+	enemyfirey += enemyfirevy*dt*60.0f;
 }
 void EnemyFire::EnemyInit(float in_x)
 {
