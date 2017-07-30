@@ -78,7 +78,7 @@ void Object::Border_Collide(float & x, float & y, float & vx,Graphics &gfx)
 			vx = -vx;
 		}
 	}
-	if (x - 10.0f < 0.f)
+	if (x - 10.0f < 0.0f)
 	{
 		if (y < 500.0f)
 		{
