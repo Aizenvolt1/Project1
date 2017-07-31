@@ -7,10 +7,10 @@ class EnemyFire
 public:
 	void EnemyInit(float in_x);
 	void CreateFire(Graphics &gfx);
-	Vec2 GetPos();
-	float GetEFx();
-	float GetEFy();
-	bool GetCF();
+	Vec2 GetPos() const;
+	float GetEFx() const;
+	float GetEFy() const;
+	bool GetCF() const;
 	void SetCF(bool cf);
 	void SetEFy(float efy);
 	void UpdateEF(float dt);

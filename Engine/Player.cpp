@@ -74,21 +74,21 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt)
 		}
 	}	
 }
-
-void Player::SetPos(Vec2 &pos_in)
+ 
+void Player::SetPos(const Vec2 &pos_in)
 {
 	pos = pos_in;
 }
-Vec2 Player::GetPos()
+Vec2 Player::GetPos() const
 {
 	return pos;
 }
-float Player::GetPx()
+float Player::GetPx() const
 {
 	return pos.x;
 }
 
-float Player::GetPy()
+float Player::GetPy() const
 {
 	return pos.y;
 }
@@ -98,7 +98,7 @@ void Player::SetInhi(bool inhi)
 	inhibitV=inhi;
 }
 
-bool Player::GetInhi()
+bool Player::GetInhi() const
 {
 	return inhibitV;
 }

@@ -4,7 +4,7 @@
 #include "Game.h"
 
 
-void Object::Init(Vec2 &pos_in, float vx)
+void Object::Init(const Vec2 &pos_in, float vx)
 {
 	pos = pos_in;
 	vel.x = vx;
@@ -36,22 +36,22 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 	}
 }
 
-Vec2 Object::GetPos()
+Vec2 Object::GetPos() const
 {
 	return pos;
 }
 
-float Object::GetOx()
+float Object::GetOx() const
 {
 	return pos.x;
 }
 
-float Object::GetOy()
+float Object::GetOy() const
 {
 	return pos.y;
 }
 
-bool Object::GetDes()
+bool Object::GetDes() const
 {
 	return Destroy;
 }

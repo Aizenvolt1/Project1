@@ -23,27 +23,27 @@ bool Fire::Border_Collide(Graphics &gfx)
 		return firebor = false;
 }
 
-Vec2 Fire::GetPos()
+Vec2 Fire::GetPos() const
 {
 	return pos;
 }
 
-float Fire::GetFx()
+float Fire::GetFx() const
 {
 	return pos.x;
 }
 
-float Fire::GetFy()
+float Fire::GetFy() const
 {
 	return pos.y;
 }
 
-bool Fire::GetBor()
+bool Fire::GetBor() const
 {
 	return firebor;
 }
 
-void Fire::SetPos(Vec2 &pos_in)
+void Fire::SetPos(const Vec2 &pos_in)
 {
 	pos = pos_in;
 }

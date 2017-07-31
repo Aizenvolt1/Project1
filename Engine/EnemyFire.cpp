@@ -13,19 +13,19 @@ void EnemyFire::CreateFire(Graphics &gfx)
 		gfx.PutPixel(in_x, -3 + in_y, 255, 255, 255);
 	}
 }
-Vec2 EnemyFire::GetPos()
+Vec2 EnemyFire::GetPos() const
 {
 	return pos;
 }
-float EnemyFire::GetEFx()
+float EnemyFire::GetEFx() const
 {
 	return pos.x;
 }
-float EnemyFire::GetEFy()
+float EnemyFire::GetEFy() const
 {
 	return pos.y;
 }
-bool EnemyFire::GetCF()
+bool EnemyFire::GetCF() const
 {
 	return createfire;
 }

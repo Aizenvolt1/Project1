@@ -8,11 +8,11 @@ class Fire
 public:
 	void Fire::DrawFire(float x, float y, Graphics &gfx);
 	bool Fire::Border_Collide(Graphics &gfx);
-	Vec2 GetPos();
-	void SetPos(Vec2 &pos_in);
-	float GetFx();
-	float GetFy();
-	bool GetBor();
+	Vec2 GetPos() const;
+	void SetPos(const Vec2 &pos_in);
+	float GetFx() const;
+	float GetFy() const;
+	bool GetBor() const;
 	void FireUpdate(float dt);
 private:
 	Vec2 pos;
