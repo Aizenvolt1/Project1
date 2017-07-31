@@ -23,13 +23,15 @@ void Object::Object_Collide(Fire &fire)
 
 void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 {
+	const int in_x = (int)x;
+	const int in_y = (int)y;
 	if (Destroy == false)
 	{
 		for (int j = -10; j < 11; j++)
 		{
 			for (int i = -10; i < 11; i++)
 			{
-			gfx.PutPixel(i + (int)x, (int)y+j, r, g, b);
+			gfx.PutPixel(i + in_x, in_y+j, r, g, b);
 			}
 		}
 	}

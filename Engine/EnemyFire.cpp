@@ -4,11 +4,13 @@
 
 void EnemyFire::CreateFire(float efirey,Graphics &gfx)
 {
+	const int in_x = (int)enemyfirex;
+	const int in_y = (int)enemyfirey;
 	if (createfire == true)
 	{
-		gfx.PutPixel((int)enemyfirex, -5 + (int)efirey, 255, 255, 255);
-		gfx.PutPixel((int)enemyfirex, -4 + (int)efirey, 255, 255, 255);
-		gfx.PutPixel((int)enemyfirex, -3 + (int)efirey, 255, 255, 255);
+		gfx.PutPixel(in_x, -5 + in_y, 255, 255, 255);
+		gfx.PutPixel(in_x, -4 + in_y, 255, 255, 255);
+		gfx.PutPixel(in_x, -3 + in_y, 255, 255, 255);
 	}
 }
 float EnemyFire::GetEFx()

@@ -4,11 +4,13 @@
 
 void Fire::DrawFire(float x,float y,Graphics &gfx)
 {
+	const int in_x = (int)x;
+	const int in_y = (int)y;
 	if (firebor == false)
 	{
-		gfx.PutPixel((int)x,-5 + (int)y, 255, 255, 255);
-		gfx.PutPixel((int)x,-4 + (int)y, 255, 255, 255);
-		gfx.PutPixel((int)x,-3 + (int)y, 255, 255, 255);
+		gfx.PutPixel(in_x,-5 + in_y, 255, 255, 255);
+		gfx.PutPixel(in_x,-4 + in_y, 255, 255, 255);
+		gfx.PutPixel(in_x,-3 + in_y, 255, 255, 255);
 	}
 }
 bool Fire::Border_Collide(Graphics &gfx)
