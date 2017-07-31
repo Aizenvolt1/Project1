@@ -4,17 +4,16 @@
 #include "Game.h"
 
 
-void Object::Init(float in_x, float in_y, float in_vx)
+void Object::Init(Vec2 &pos_in, float vx)
 {
-	x = in_x;
-	y = in_y;
-	vx = in_vx;
+	pos = pos_in;
+	vel.x = vx;
 }
 
 void Object::Object_Collide(Fire &fire)
 {
 
-	if ((fire.GetFx() >=x - 10) && (fire.GetFx() <= x + 10) && (fire.GetFy() >= y - 10) && (fire.GetFy() <= y + 10))
+	if ((fire.GetFx() >=pos.x - 10) && (fire.GetFx() <= pos.x + 10) && (fire.GetFy() >= pos.y - 10) && (fire.GetFy() <= pos.y + 10))
 	{
 		Destroy = true;
 	}
@@ -23,8 +22,8 @@ void Object::Object_Collide(Fire &fire)
 
 void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 {
-	const int in_x = (int)x;
-	const int in_y = (int)y;
+	const int in_x = (int)pos.x;
+	const int in_y = (int)pos.y;
 	if (Destroy == false)
 	{
 		for (int j = -10; j < 11; j++)
@@ -37,14 +36,19 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 	}
 }
 
+Vec2 Object::GetPos()
+{
+	return pos;
+}
+
 float Object::GetOx()
 {
-	return x;
+	return pos.x;
 }
 
 float Object::GetOy()
 {
-	return y;
+	return pos.y;
 }
 
 bool Object::GetDes()
@@ -59,39 +63,39 @@ void Object::SetDes(bool setdes)
 
 void Object::Update(Graphics &gfx,float dt)
 {
-	x += vx*dt*60.0f;
-	Border_Collide(x, y, vx,gfx);
+	pos.x += vel.x*dt*60.0f;
+	Border_Collide(pos.x, pos.y, vel.x,gfx);
 	
 }
 
 void Object::Border_Collide(float & x, float & y, float & vx,Graphics &gfx)
 {
-	if (x + 10.0f >= (float)gfx.ScreenWidth)
+	if (pos.x + 10.0f >= (float)gfx.ScreenWidth)
 	{
-		if (y < 500.0f)
+		if (pos.y < 500.0f)
 		{
-			y += 30.0;
-			x = (float)gfx.ScreenWidth - 11.0f;
-			vx = -vx;
+			pos.y += 30.0;
+			pos.x = (float)gfx.ScreenWidth - 11.0f;
+			vel.x = -vel.x;
 		}
 		else
 		{
-			x = (float)gfx.ScreenWidth - 11.0f;
-			vx = -vx;
+			pos.x = (float)gfx.ScreenWidth - 11.0f;
+			vel. x = -vel.x;
 		}
 	}
-	if (x - 10.0f < 0.0f)
+	if (pos.x - 10.0f < 0.0f)
 	{
-		if (y < 500.0f)
+		if (pos.y < 500.0f)
 		{
-			y += 30.0f;
-			x = 10.0f;
-			vx = -vx;
+			pos.y += 30.0f;
+			pos.x = 10.0f;
+			vel.x = -vel.x;
 		}
 		else
 		{
-			x = 10.0f;
-			vx = -vx;
+			pos.x = 10.0f;
+			vel.x = -vel.x;
 		}
 	}
 }

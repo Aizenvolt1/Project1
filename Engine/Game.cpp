@@ -38,7 +38,7 @@ Game::Game( MainWindow& wnd )
 	{
 		if (i <= 9)
 		{
-		object[i].Init(adder, 50.0f, vDist(rng));
+		object[i].Init(Vec2(adder, 50.0f), vDist(rng));
 		adder += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
@@ -46,7 +46,7 @@ Game::Game( MainWindow& wnd )
 			adder = 60.0f;
 		else if(i>=10 && i<20)
 		{
-		object[i].Init(adder, 80.0f, vDist(rng));
+		object[i].Init(Vec2(adder, 80.0f), vDist(rng));
 		adder += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
@@ -72,8 +72,7 @@ void Game::UpdateModel()
 			{
 				fcount1 = fcount;
 				player.SetInhi(true);
-				fire[fcount1].SetFx(player.GetPx());
-				fire[fcount1].SetFy(player.GetPy());
+				fire[fcount1].SetPos(player.GetPos());
 				permitfire = true;
 			}
 			if (fcount <= 1)
@@ -126,7 +125,7 @@ void Game::UpdateModel()
 		{
 			if (enemf[i].GetCF() == true && object[i].GetDes() == false)
 			{
-				enemf[i].CreateFire(enemf[i].GetEFy(),gfx);
+				enemf[i].CreateFire(gfx);
 				enemf[i].UpdateEF(dt);
 				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
 				{
@@ -181,7 +180,7 @@ void Game::UpdateModel()
 			{
 				if (i <= 9)
 				{
-					object[i].Init(adder, 50.0f, vDist(rng));
+					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
 					adder += 60;
 					enemf[i].EnemyInit(xDist(rng));
 				}
@@ -189,7 +188,7 @@ void Game::UpdateModel()
 					adder = 60;
 				else if (i >= 10 && i < 20)
 				{
-					object[i].Init(adder, 80.0f, vDist(rng));
+					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
 					adder += 60;
 					enemf[i].EnemyInit(xDist(rng));
 				}
@@ -28561,11 +28560,14 @@ void Game::ComposeFrame()
 	if (isOver)//Draw End Screen
 	{
 		DrawGameOver(358, 268);
-		player.SetPxy(400.0f, 550.0f);
+		player.SetPos(Vec2(400.0f, 550.0f));
 		for (int i = 0; i < 2; i++)
 		{
-			fire[i].SetFx(0.0f);
-			fire[i].SetFy(0.0f);
+			fire[i].SetPos(Vec2(0.0f,0.0f));
+		}
+		for (int i = 0; i < 20; i++)
+		{
+			enemf[i].SetCF(false);
 		}
 	}
 }

@@ -15,7 +15,7 @@ void Fire::DrawFire(float x,float y,Graphics &gfx)
 }
 bool Fire::Border_Collide(Graphics &gfx)
 {
-	if (firey - (float)5< 0)
+	if (pos.y - (float)5< 0)
 	{
 		return  firebor = true;
 	}
@@ -23,14 +23,19 @@ bool Fire::Border_Collide(Graphics &gfx)
 		return firebor = false;
 }
 
+Vec2 Fire::GetPos()
+{
+	return pos;
+}
+
 float Fire::GetFx()
 {
-	return firex;
+	return pos.x;
 }
 
 float Fire::GetFy()
 {
-	return firey;
+	return pos.y;
 }
 
 bool Fire::GetBor()
@@ -38,17 +43,12 @@ bool Fire::GetBor()
 	return firebor;
 }
 
-void Fire::SetFx(float fx)
+void Fire::SetPos(Vec2 &pos_in)
 {
-	firex = fx;
-}
-
-void Fire::SetFy(float fy)
-{
-	firey = fy;
+	pos = pos_in;
 }
 
 void Fire::FireUpdate(float dt)
 {
-	firey += firevy*dt*60.0f;
+	pos.y += vel.y*dt*60.0f;
 }

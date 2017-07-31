@@ -3,8 +3,8 @@
 
 void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 {
-	const int in_x = (int)x;
-	const int in_y = (int)y;
+	const int in_x = (int)pos.x;
+	const int in_y = (int)pos.y;
 	gfx.PutPixel(-10+ in_x, in_y, r, g, b);
 	gfx.PutPixel(-9+ in_x, in_y, r, g, b);
 	gfx.PutPixel(-8+ in_x, in_y, r, g, b);
@@ -53,42 +53,44 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt)
 {
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		if (x - 10.0f <=2.0f)
+		if (pos.x - 10.0f <=2.0f)
 		{
-			x = 11.0f;
+			pos.x = 11.0f;
 		}
-		else if(x-10>0)
+		else if(pos.x-10>0)
 		{
-			x -= 2.0f*dt*60.0f;
+			pos.x -= 2.0f*dt*60.0f;
 		}
 	}
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		if (x + 10.0f >= (float)gfx.ScreenWidth)
+		if (pos.x + 10.0f >= (float)gfx.ScreenWidth)
 		{
-			x = (float)gfx.ScreenWidth - 10.0f;
+			pos.x = (float)gfx.ScreenWidth - 10.0f;
 		}
-		else if(x + 10.0f < (float)gfx.ScreenWidth-3.0f)
+		else if(pos.x + 10.0f < (float)gfx.ScreenWidth-3.0f)
 		{
-			x += 2.0f*dt*60.0f;
+			pos.x += 2.0f*dt*60.0f;
 		}
 	}	
 }
 
-void Player::SetPxy(float inx,float iny)
+void Player::SetPos(Vec2 &pos_in)
 {
-	x = inx;
-	y = iny;
+	pos = pos_in;
 }
-
+Vec2 Player::GetPos()
+{
+	return pos;
+}
 float Player::GetPx()
 {
-	return x;
+	return pos.x;
 }
 
 float Player::GetPy()
 {
-	return y;
+	return pos.y;
 }
 
 void Player::SetInhi(bool inhi)

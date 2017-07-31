@@ -1,21 +1,21 @@
 #pragma once
 #include "Graphics.h"
+#include "Vec2.h"
 
 class EnemyFire
 {
 public:
 	void EnemyInit(float in_x);
-	void CreateFire(float efirey,Graphics &gfx);
+	void CreateFire(Graphics &gfx);
+	Vec2 GetPos();
 	float GetEFx();
 	float GetEFy();
 	bool GetCF();
 	void SetCF(bool cf);
-	void SetEFx(float efx);
 	void SetEFy(float efy);
 	void UpdateEF(float dt);
 private:
-	float enemyfirex;
-	float enemyfirey;
-	float enemyfirevy = 6.0f;
+	Vec2 pos;
+	Vec2 vel=Vec2(0.0f,6.0f);
 	bool createfire = false;
 };
