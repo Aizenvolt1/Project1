@@ -30,6 +30,7 @@
 #include "Score.h"
 #include "EnemyFire.h"
 #include "FrameTimer.h"
+#include "Sound.h"
 class Game
 {
 public:
@@ -69,4 +70,5 @@ private:
 	bool Replay = false;
 	int DesCount = 0;
 	float adder = 80.0f;
+	Sound fart;
 };

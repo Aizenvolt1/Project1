@@ -32,6 +32,7 @@ Game::Game( MainWindow& wnd )
 	xDist(20.0f,700.0f),
 	yDist(10,10),
 	vDist(1.1f,1.8f)
+	//fart(L"fart.wav")
 {
 	
 	for (int i = 0; i < 20; i++)
@@ -66,6 +67,7 @@ void Game::UpdateModel()
 	const float dt = ft.Mark();
 	if (isStarted==true && isOver==false)
 	{
+		/*fart.Play();*/
 		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false)//Player Controls
 		{
 			if (fcount >= 0 && fcount < 2)
