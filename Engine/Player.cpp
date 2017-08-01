@@ -53,22 +53,22 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt)
 {
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
-		if (pos.x - 10.0f <=2.0f)
+		if ((int)pos.x - 10 <=2)
 		{
-			pos.x = 11.0f;
+			pos.x = 10;
 		}
-		else if(pos.x-10>0)
+		else if((int)pos.x-10>0)
 		{
 			pos.x -= 2.0f*dt*60.0f;
 		}
 	}
 	if (kbd.KeyIsPressed(VK_RIGHT))
 	{
-		if (pos.x + 10.0f >= (float)gfx.ScreenWidth)
+		if ((int)pos.x + 10 >= gfx.ScreenWidth-2)
 		{
 			pos.x = (float)gfx.ScreenWidth - 10.0f;
 		}
-		else if(pos.x + 10.0f < (float)gfx.ScreenWidth-3.0f)
+		else if((int)pos.x + 10 < gfx.ScreenWidth)
 		{
 			pos.x += 2.0f*dt*60.0f;
 		}
