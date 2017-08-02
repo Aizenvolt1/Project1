@@ -1,5 +1,4 @@
 #pragma once
-#include "Player.h"
 #include "Fire.h"
 #include "Graphics.h"
 #include "Vec2.h"

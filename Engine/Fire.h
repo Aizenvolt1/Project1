@@ -1,13 +1,12 @@
 #pragma once
-#include "Player.h"
 #include "Graphics.h"
 #include "Vec2.h"
 
 class Fire
 {
 public:
-	void Fire::DrawFire(float x, float y, Graphics &gfx);
-	bool Fire::Border_Collide(Graphics &gfx);
+	void DrawFire(float x, float y, Graphics &gfx);
+	bool Border_Collide(Graphics &gfx);
 	Vec2 GetPos() const;
 	void SetPos(const Vec2 &pos_in);
 	float GetFx() const;
