@@ -16,6 +16,7 @@ void Object::Object_Collide(Fire &fire)
 	if ((fire.GetFx() >=pos.x - 10) && (fire.GetFx() <= pos.x + 10) && (fire.GetFy() >= pos.y - 10) && (fire.GetFy() <= pos.y + 10))
 	{
 		Destroy = true;
+		fire.SetPos(Vec2(1.00f, 1.00f));
 	}
 
 }

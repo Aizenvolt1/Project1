@@ -81,9 +81,13 @@ void Game::UpdateModel()
 				fcount++;
 		}
 		player.UpdateP(wnd.kbd,gfx,dt);
-		for (int i = 0; i < fcount1 + 1; i++) //Object destruction Check
+		for (int i = 0; i < 20; i++) //Object destruction Check
 		{
-			object[i].Object_Collide(fire[i]);
+			if (object[i].GetDes() == false)
+			{
+				object[i].Object_Collide(fire[0]);
+				object[i].Object_Collide(fire[1]);
+			}
 		}									//Object destruction Check
 		if (player.GetInhi()==true)
 		{

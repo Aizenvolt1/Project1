@@ -38,9 +38,14 @@ float Fire::GetFy() const
 	return pos.y;
 }
 
-bool Fire::GetBor() const
+bool Fire::GetBor() 
 {
 	return firebor;
+}
+
+void Fire::SetBor(bool fired)
+{
+	firebor=fired;
 }
 
 void Fire::SetPos(const Vec2 &pos_in)
