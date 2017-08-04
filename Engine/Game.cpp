@@ -81,14 +81,6 @@ void Game::UpdateModel()
 				fcount++;
 		}
 		player.UpdateP(wnd.kbd,gfx,dt);
-		for (int i = 0; i < 20; i++) //Object destruction Check
-		{
-			if (object[i].GetDes() == false)
-			{
-				object[i].Object_Collide(fire[0]);
-				object[i].Object_Collide(fire[1]);
-			}
-		}									//Object destruction Check
 		if (player.GetInhi()==true)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
@@ -114,7 +106,7 @@ void Game::UpdateModel()
 			if (fire[y].GetFy() < 395)
 				permitfire= false;
 			}
-		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation
+		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 		{
 			object[i].Update(gfx,dt);
 			if ((int)object[i].GetOx() == (int)enemf[i].GetEFx() && object[i].GetDes()==false)
@@ -129,7 +121,7 @@ void Game::UpdateModel()
 		}
 		for (int i = 0; i < 20; i++)//Objects fire movement
 		{
-			if (enemf[i].GetCF() == true && object[i].GetDes() == false)
+			if (enemf[i].GetCF() == true)
 			{
 				enemf[i].CreateFire(gfx);
 				enemf[i].UpdateEF(dt);

@@ -17,6 +17,7 @@ void Object::Object_Collide(Fire &fire)
 	{
 		Destroy = true;
 		fire.SetPos(Vec2(1.00f, 1.00f));
+		SetPos(Vec2(100.0f, 570.0f));
 	}
 
 }
@@ -25,14 +26,11 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 {
 	const int in_x = (int)pos.x;
 	const int in_y = (int)pos.y;
-	if (Destroy == false)
+	for (int j = -10; j < 11; j++)
 	{
-		for (int j = -10; j < 11; j++)
+		for (int i = -10; i < 11; i++)
 		{
-			for (int i = -10; i < 11; i++)
-			{
 			gfx.PutPixel(i + in_x, in_y+j, r, g, b);
-			}
 		}
 	}
 }
@@ -40,6 +38,11 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 Vec2 Object::GetPos() const
 {
 	return pos;
+}
+
+void Object::SetPos(const Vec2 & pos_in)
+{
+	pos = pos_in;
 }
 
 float Object::GetOx() const
@@ -62,11 +65,13 @@ void Object::SetDes(bool setdes)
 	Destroy = setdes;
 }
 
-void Object::Update(Graphics &gfx,float dt)
+void Object::Update(Graphics &gfx, float dt)
 {
-	pos.x += vel.x*dt*60.0f;
-	Border_Collide(pos.x, pos.y, vel.x,gfx);
-	
+	if (GetDes() == false)
+	{
+		pos.x += vel.x*dt*60.0f;
+		Border_Collide(pos.x, pos.y, vel.x, gfx);
+	}
 }
 
 void Object::Border_Collide(float & x, float & y, float & vx,Graphics &gfx)

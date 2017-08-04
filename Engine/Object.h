@@ -11,6 +11,7 @@ public:
 	void Border_Collide(float &x, float &y, float &vx,Graphics &gfx);
 	void DrawBox(int,int, int, Graphics &gfx);
 	Vec2 GetPos() const;
+	void SetPos(const Vec2 &pos_in);
 	float GetOx() const;
 	float GetOy() const;
 	bool GetDes() const;
