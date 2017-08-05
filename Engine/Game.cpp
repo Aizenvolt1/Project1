@@ -31,10 +31,9 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	xDist(10.0f,790.0f),
 	yDist(10,10),
-	vDist(1.2f,1.8f)/*,
-	fart(L"Sounds\\fart.wav")*/
+	vDist(1.2f,1.8f),
+	start(L"Sounds\\ready.wav")
 {
-	
 	for (int i = 0; i < 20; i++)
 	{
 		if (i <= 9)
@@ -71,7 +70,6 @@ void Game::UpdateModel()
 	const float dt = ft.Mark();
 	if (isStarted==true && isOver==false)
 	{
-	/*	fart.Play();*/
 		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false)//Player Controls
 		{
 			if (fcount >= 0 && fcount < 2)
@@ -148,8 +146,14 @@ void Game::UpdateModel()
 	}
 	else if(isStarted==false && isOver==false)//Check if game is not Started
 	{
+		if (firstGameStart)
+		{
+			start.Play();
+			firstGameStart = false;
+		}
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
+			start.StopAll();
 			isStarted = true;
 			for (int i = 0; i < 20; i++)
 			{
@@ -157,6 +161,7 @@ void Game::UpdateModel()
 			}
 			fcount = 0;
 			fcount1 = 0;
+			firstGameStart = true;
 		}
 	}
 	if (isStarted == true)//Check if all objects are destroyed after the game has started

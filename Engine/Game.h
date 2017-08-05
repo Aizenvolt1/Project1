@@ -72,5 +72,6 @@ private:
 	bool Replay = false;
 	int DesCount = 0;
 	float adder = 80.0f;
-	Sound fart;
+	Sound start;
+	bool firstGameStart = true;
 };
