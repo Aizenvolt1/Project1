@@ -29,7 +29,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	xDist(20.0f,700.0f),
+	xDist(10.0f,790.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f)/*,
 	fart(L"Sounds\\fart.wav")*/
@@ -51,6 +51,10 @@ Game::Game( MainWindow& wnd )
 		adder += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
+	}
+	for (int i = 0; i < 599; i++)
+	{
+		star[i].SetPos(Vec2(xDist(rng), float(i+1)));
 	}
 }
 
@@ -136,6 +140,10 @@ void Game::UpdateModel()
 					enemf[i].SetCF(false);
 				}
 			}
+		}
+		for (int y = 0; y <599; y++)
+		{
+			star[y].Update(gfx, dt);
 		}
 	}
 	else if(isStarted==false && isOver==false)//Check if game is not Started
@@ -28549,6 +28557,10 @@ void Game::ComposeFrame()
 	}
 	else if (isStarted && isOver==false)//Draw Boxes
 	{
+		for (int y = 0; y <599; y++)
+		{
+			star[y].DrawStars(255, 255, 255, gfx);
+		}
 		for (int i = 0; i < 20; i++)
 		{
 			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.

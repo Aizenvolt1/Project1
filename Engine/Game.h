@@ -31,6 +31,7 @@
 #include "EnemyFire.h"
 #include "FrameTimer.h"
 #include "Sound.h"
+#include "Stars.h"
 class Game
 {
 public:
@@ -62,6 +63,7 @@ private:
 	Score s;
 	EnemyFire enemf[20];
 	FrameTimer ft;
+	Stars star[599];
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
