@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	xDist(20.0f,700.0f),
 	yDist(10,10),
-	vDist(1.1f,1.8f)/*,
+	vDist(1.2f,1.8f)/*,
 	fart(L"Sounds\\fart.wav")*/
 {
 	
@@ -109,9 +109,10 @@ void Game::UpdateModel()
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 		{
 			object[i].Update(gfx,dt);
-			if ((int)object[i].GetOx() == (int)enemf[i].GetEFx() && object[i].GetDes()==false)
+			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx()-2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes()==false)
 			{
 				enemf[i].SetCF(true);
+			/*	enemf[i].firstf = true;*/
 				enemf[i].SetEFy(object[i].GetOy());
 			}
 			for (int y = 0; y < 2; y++)
@@ -28550,9 +28551,11 @@ void Game::ComposeFrame()
 	{
 		for (int i = 0; i < 20; i++)
 		{
-			if (object[i].GetDes() == false)//Check if Box is Desstroyed and if yes dont draw box.
-				object[i].DrawBox(0, 255, 0, gfx);
-			player.DrawCross(255, 255, 255, gfx);
+			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
+				object[i].DrawBox(0, 77, 153, gfx);
+			//else if ((object[i].GetDes() == false && enemf[i].firstf == true))
+			//	object[i].DrawBox(0, 0, 255, gfx);
+			player.DrawCross(60, 0,0 , gfx);
 		}
 	}
 	if (isOver)//Draw End Screen

@@ -13,6 +13,7 @@ public:
 	void SetCF(bool cf);
 	void SetEFy(float efy);
 	void UpdateEF(float dt);
+	bool firstf = false;
 private:
 	Vec2 pos;
 	Vec2 vel=Vec2(0.0f,6.0f);

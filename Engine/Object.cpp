@@ -26,12 +26,16 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 {
 	const int in_x = (int)pos.x;
 	const int in_y = (int)pos.y;
-	for (int j = -10; j < 11; j++)
+	int x;
+	int y;
+	int k = 10;
+	for (y = -10; y <= 10; y++)
 	{
-		for (int i = -10; i < 11; i++)
+		for (x = -k; x <= k; x++)
 		{
-			gfx.PutPixel(i + in_x, in_y+j, r, g, b);
+			gfx.PutPixel(x + in_x, y + in_y, r, g, b);
 		}
+		k--;
 	}
 }
 
