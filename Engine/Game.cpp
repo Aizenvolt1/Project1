@@ -86,7 +86,7 @@ void Game::UpdateModel()
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
 				fire[i].Border_Collide(gfx);//Fire hit Border Check
-				fire[i].DrawFire(fire[i].GetFx(), fire[i].GetFy(), gfx);//Draw Fire Check
+				fire[i].DrawFire(204,0,0,fire[i].GetFx(), fire[i].GetFy(),gfx);//Draw Fire Check
 				if (fire[0].GetBor() == true && fire[1].GetBor() == true)//Fire reload check
 				{
 					fcount = 0;
@@ -124,7 +124,7 @@ void Game::UpdateModel()
 		{
 			if (enemf[i].GetCF() == true)
 			{
-				enemf[i].CreateFire(gfx);
+				enemf[i].CreateFire(0,0,204,gfx);
 				enemf[i].UpdateEF(dt);
 				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
 				{
@@ -28552,7 +28552,7 @@ void Game::ComposeFrame()
 		for (int i = 0; i < 20; i++)
 		{
 			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
-				object[i].DrawBox(0, 77, 153, gfx);
+				object[i].DrawBox(0, 0, 60, gfx);
 			//else if ((object[i].GetDes() == false && enemf[i].firstf == true))
 			//	object[i].DrawBox(0, 0, 255, gfx);
 			player.DrawCross(60, 0,0 , gfx);

@@ -5,7 +5,7 @@
 class Fire
 {
 public:
-	void DrawFire(float x, float y, Graphics &gfx);
+	void DrawFire(int r, int g, int b,float x, float y, Graphics &gfx);
 	bool Border_Collide(Graphics &gfx);
 	Vec2 GetPos() const;
 	void SetPos(const Vec2 &pos_in);

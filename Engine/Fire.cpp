@@ -2,20 +2,19 @@
 #include "Player.h"
 #include "Graphics.h"
 
-void Fire::DrawFire(float x,float y,Graphics &gfx)
+void Fire::DrawFire(int r, int g, int b,float x,float y,Graphics &gfx)
 {
 	const int in_x = (int)x;
 	const int in_y = (int)y;
 	if (firebor == false)
 	{
-		gfx.PutPixel(in_x,-5 + in_y, 255, 255, 255);
-		gfx.PutPixel(in_x,-4 + in_y, 255, 255, 255);
-		gfx.PutPixel(in_x,-3 + in_y, 255, 255, 255);
+		for (int i = -7; i<-1; i++)
+			gfx.PutPixel(in_x, i + in_y, r, g, b);
 	}
 }
 bool Fire::Border_Collide(Graphics &gfx)
 {
-	if (pos.y - (float)5< 0)
+	if (pos.y - (float)7< 0)
 	{
 		return  firebor = true;
 	}

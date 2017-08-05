@@ -5,7 +5,7 @@ class EnemyFire
 {
 public:
 	void EnemyInit(float in_x);
-	void CreateFire(Graphics &gfx);
+	void CreateFire(int r, int g, int b,Graphics &gfx);
 	Vec2 GetPos() const;
 	float GetEFx() const;
 	float GetEFy() const;

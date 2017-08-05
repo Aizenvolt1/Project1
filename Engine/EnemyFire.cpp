@@ -2,15 +2,14 @@
 #include "Graphics.h"
 
 
-void EnemyFire::CreateFire(Graphics &gfx)
+void EnemyFire::CreateFire(int r, int g, int b,Graphics &gfx)
 {
 	const int in_x = (int)pos.x;
 	const int in_y = (int)pos.y;
 	if (createfire == true)
 	{
-		gfx.PutPixel(in_x, -5 + in_y, 255, 255, 255);
-		gfx.PutPixel(in_x, -4 + in_y, 255, 255, 255);
-		gfx.PutPixel(in_x, -3 + in_y, 255, 255, 255);
+		for(int i=-6;i<-1;i++)
+		gfx.PutPixel(in_x, i + in_y, r, g, b);
 	}
 }
 Vec2 EnemyFire::GetPos() const
