@@ -35,7 +35,9 @@ Game::Game( MainWindow& wnd )
 	start(L"Sounds\\ready.wav"),
 	endwin(L"Sounds\\winsound.wav"),
 	plaser(L"Sounds\\plaser.wav"),
-	elaser(L"Sounds\\elaser.wav")
+	elaser(L"Sounds\\elaser.wav"),
+	backg(L"Sounds\\background.wav",0.0f,93.0f),
+	endlose(L"Sounds\\losesound.wav")
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -73,6 +75,11 @@ void Game::UpdateModel()
 	const float dt = ft.Mark();
 	if (isStarted==true && isOver==false)
 	{
+		if (background)
+		{
+			backg.Play();
+			background = false;
+		}
 		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false && DesCount<20)//Player Controls
 		{
 			if (fcount >= 0 && fcount < 2)
@@ -149,6 +156,11 @@ void Game::UpdateModel()
 				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
 				{
 					enemf[i].SetCF(false);
+					if (loseGame)
+					{
+						endlose.Play();
+						loseGame = false;
+					}
 					isOver = true;
 				}
 				if (enemf[i].GetEFy() > 570.0f)
@@ -181,6 +193,7 @@ void Game::UpdateModel()
 			fcount1 = 0;
 			firstGameStart = true;
 			winGame = true;
+			loseGame = true;
 		}
 	}
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
@@ -205,8 +218,10 @@ void Game::UpdateModel()
 	}
 	if (isOver==true)//Check if game is over and if yes enable R to replay
 	{
+		backg.StopAll();
 		if (wnd.kbd.KeyIsPressed('R'))
 		{
+			endlose.StopAll();
 			isStarted = false;
 			isOver = false;
 			adder = 80;
@@ -230,6 +245,7 @@ void Game::UpdateModel()
 			fcount = 0;
 			fcount1 = 0;
 		}
+		background = true;
 	}
 }
 void Game::DrawTitleScreen(int x, int y)

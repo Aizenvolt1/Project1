@@ -76,8 +76,12 @@ private:
 	Sound endwin;
 	Sound plaser;
 	Sound elaser;
+	Sound backg;
+	Sound endlose;
 	bool firstGameStart = true;
 	bool winGame = true;
 	bool plaserstart = true;
 	bool elaserstart = true;
+	bool background = true;
+	bool loseGame = true;
 };

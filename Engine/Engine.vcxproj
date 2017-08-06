@@ -243,7 +243,9 @@
     <Image Include="Chili.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Sounds\background.wav" />
     <Media Include="Sounds\elaser.wav" />
+    <Media Include="Sounds\losesound.wav" />
     <Media Include="Sounds\plaser.wav" />
     <Media Include="Sounds\ready.wav" />
     <Media Include="Sounds\winsound.wav" />
