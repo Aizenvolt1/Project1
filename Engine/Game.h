@@ -73,5 +73,11 @@ private:
 	int DesCount = 0;
 	float adder = 80.0f;
 	Sound start;
+	Sound endwin;
+	Sound plaser;
+	Sound elaser;
 	bool firstGameStart = true;
+	bool winGame = true;
+	bool plaserstart = true;
+	bool elaserstart = true;
 };

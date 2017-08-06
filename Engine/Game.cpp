@@ -32,7 +32,10 @@ Game::Game( MainWindow& wnd )
 	xDist(10.0f,790.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f),
-	start(L"Sounds\\ready.wav")
+	start(L"Sounds\\ready.wav"),
+	endwin(L"Sounds\\winsound.wav"),
+	plaser(L"Sounds\\plaser.wav"),
+	elaser(L"Sounds\\elaser.wav")
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -80,7 +83,11 @@ void Game::UpdateModel()
 				permitfire = true;
 			}
 			if (fcount <= 1)
+			{
 				fcount++;
+				plaserstart = true;
+			}
+
 		}
 		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver);
 		if (player.GetInhi()==true)
@@ -89,6 +96,11 @@ void Game::UpdateModel()
 			{
 				fire[i].Border_Collide(gfx);//Fire hit Border Check
 				fire[i].DrawFire(204,0,0,fire[i].GetFx(), fire[i].GetFy(),gfx);//Draw Fire Check
+				if (plaserstart)
+				{
+					plaser.Play(1.0f,0.1f);
+					plaserstart = false;
+				}
 				if (fire[0].GetBor() == true && fire[1].GetBor() == true)//Fire reload check
 				{
 					fcount = 0;
@@ -114,6 +126,7 @@ void Game::UpdateModel()
 			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx()-2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes()==false)
 			{
 				enemf[i].SetCF(true);
+				elaserstart = true;
 			/*	enemf[i].firstf = true;*/
 				enemf[i].SetEFy(object[i].GetOy());
 			}
@@ -127,6 +140,11 @@ void Game::UpdateModel()
 			if (enemf[i].GetCF() == true)
 			{
 				enemf[i].CreateFire(0,0,204,gfx);
+				if (elaserstart)
+				{
+					elaser.Play(1.0f,0.02f);
+					elaserstart = false;
+				}
 				enemf[i].UpdateEF(dt);
 				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
 				{
@@ -162,6 +180,7 @@ void Game::UpdateModel()
 			fcount = 0;
 			fcount1 = 0;
 			firstGameStart = true;
+			winGame = true;
 		}
 	}
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
@@ -174,6 +193,14 @@ void Game::UpdateModel()
 		}
 		if(DesCount < 20)
 			DesCount = 0;
+		if (DesCount == 20)
+		{
+			if (winGame)
+			{
+				endwin.Play();
+				winGame = false;
+			}
+		}
 		
 	}
 	if (isOver==true)//Check if game is over and if yes enable R to replay

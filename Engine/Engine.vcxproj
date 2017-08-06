@@ -243,7 +243,10 @@
     <Image Include="Chili.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Media Include="Sounds\elaser.wav" />
+    <Media Include="Sounds\plaser.wav" />
     <Media Include="Sounds\ready.wav" />
+    <Media Include="Sounds\winsound.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

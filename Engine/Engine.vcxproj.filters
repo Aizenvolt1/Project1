@@ -151,5 +151,14 @@
     <Media Include="Sounds\ready.wav">
       <Filter>Sounds</Filter>
     </Media>
+    <Media Include="Sounds\winsound.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\plaser.wav">
+      <Filter>Sounds</Filter>
+    </Media>
+    <Media Include="Sounds\elaser.wav">
+      <Filter>Sounds</Filter>
+    </Media>
   </ItemGroup>
 </Project>
