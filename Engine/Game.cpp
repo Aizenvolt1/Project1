@@ -153,7 +153,7 @@ void Game::UpdateModel()
 					elaserstart = false;
 				}
 				enemf[i].UpdateEF(dt);
-				if ((enemf[i].GetEFx() >= player.GetPx() - 10.0f) && (enemf[i].GetEFx()<= player.GetPx() + 10.0f) && (enemf[i].GetEFy() >= player.GetPy() - 10.0f) && (enemf[i].GetEFy() <= player.GetPy() + 10.0f))
+				if ((enemf[i].GetEFx() >= player.GetPx() - 15.0f) && (enemf[i].GetEFx()<= player.GetPx() + 15.0f) && (enemf[i].GetEFy() >= player.GetPy() - 15.0f) && (enemf[i].GetEFy() <= player.GetPy() + 15.0f))
 				{
 					enemf[i].SetCF(false);
 					if (loseGame)
