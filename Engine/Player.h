@@ -6,7 +6,7 @@ class Player
 {
 public:
 	void DrawCross(int r, int g, int b, Graphics &gfx);
-	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt);
+	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,bool& isOver);
 	Vec2 GetPos() const;
 	float GetPx() const;
 	float GetPy() const;
@@ -15,6 +15,6 @@ public:
 	bool GetInhi() const;
 private:
 	Vec2 pos = Vec2(400.0f,550.0f);
-	Vec2 vel;
+	Vec2 vel = Vec2(0.0f,6.0f);
 	bool inhibitV = false;
 };

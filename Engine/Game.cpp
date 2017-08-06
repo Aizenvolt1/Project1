@@ -70,7 +70,7 @@ void Game::UpdateModel()
 	const float dt = ft.Mark();
 	if (isStarted==true && isOver==false)
 	{
-		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false)//Player Controls
+		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false && DesCount<20)//Player Controls
 		{
 			if (fcount >= 0 && fcount < 2)
 			{
@@ -82,7 +82,7 @@ void Game::UpdateModel()
 			if (fcount <= 1)
 				fcount++;
 		}
-		player.UpdateP(wnd.kbd,gfx,dt);
+		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver);
 		if (player.GetInhi()==true)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
@@ -172,12 +172,7 @@ void Game::UpdateModel()
 			if (object[i].GetDes() == true)
 				DesCount++;
 		}
-		if (DesCount == 20)
-		{
-			isOver = true;
-			DesCount = 0;
-		}
-		else
+		if(DesCount < 20)
 			DesCount = 0;
 		
 	}

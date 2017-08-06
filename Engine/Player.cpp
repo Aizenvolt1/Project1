@@ -18,30 +18,40 @@ void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 	}
 }
 
-void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt)
+void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,bool &isOver)
 {
-	if (kbd.KeyIsPressed(VK_LEFT))
+	if (Descount < 20)
 	{
-		if ((int)pos.x - 20 <=2)
+		if (kbd.KeyIsPressed(VK_LEFT))
 		{
-			pos.x = 20;
+			if ((int)pos.x - 20 <= 2)
+			{
+				pos.x = 20;
+			}
+			else if ((int)pos.x - 20 > 0)
+			{
+				pos.x -= 2.0f*dt*60.0f;
+			}
 		}
-		else if((int)pos.x-20>0)
+		if (kbd.KeyIsPressed(VK_RIGHT))
 		{
-			pos.x -= 2.0f*dt*60.0f;
+			if ((int)pos.x + 20 >= gfx.ScreenWidth - 2)
+			{
+				pos.x = (float)gfx.ScreenWidth - 20.0f;
+			}
+			else if ((int)pos.x + 20 < gfx.ScreenWidth)
+			{
+				pos.x += 2.0f*dt*60.0f;
+			}
 		}
 	}
-	if (kbd.KeyIsPressed(VK_RIGHT))
+	else
 	{
-		if ((int)pos.x + 20 >= gfx.ScreenWidth - 2)
-		{
-			pos.x = (float)gfx.ScreenWidth - 20.0f;
-		}
-		else if((int)pos.x + 20 < gfx.ScreenWidth)
-		{
-			pos.x += 2.0f*dt*60.0f;
-		}
-	}	
+		pos.y -= vel.y*dt*60.0f;
+		if (pos.y - 10 < 0)
+			isOver = true;
+		Descount = 0;
+	}
 }
  
 void Player::SetPos(const Vec2 &pos_in)
