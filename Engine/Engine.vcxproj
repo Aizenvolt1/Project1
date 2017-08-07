@@ -154,6 +154,7 @@
     <ClInclude Include="Score.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Stars.h" />
+    <ClInclude Include="Upgrade.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Stars.cpp" />
+    <ClCompile Include="Upgrade.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
   <ItemGroup>

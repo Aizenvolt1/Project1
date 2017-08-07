@@ -32,6 +32,8 @@
 #include "FrameTimer.h"
 #include "Sound.h"
 #include "Stars.h"
+#include "Upgrade.h"
+
 class Game
 {
 public:
@@ -50,6 +52,7 @@ private:
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
 	std::uniform_real_distribution<float> vDist;
+	std::uniform_real_distribution<float> pupgrade;
 	MainWindow& wnd;
 	Graphics gfx;
 	int r_fixed = 255;
@@ -64,6 +67,7 @@ private:
 	EnemyFire enemf[20];
 	FrameTimer ft;
 	Stars star[599];
+	Upgrade upgrade[2];
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
@@ -87,4 +91,5 @@ private:
 	int framecounter = 0;
 	int fireborcounter = 0;
 	int defaultfcount = 2;
+	int upgrades[2];
 };

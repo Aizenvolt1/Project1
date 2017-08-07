@@ -32,6 +32,7 @@ Game::Game( MainWindow& wnd )
 	xDist(10.0f,790.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f),
+	pupgrade(0.0f,19.0f),
 	start(L"Sounds\\ready.wav"),
 	endwin(L"Sounds\\winsound.wav"),
 	plaser(L"Sounds\\plaser.wav"),
@@ -60,6 +61,20 @@ Game::Game( MainWindow& wnd )
 	{
 		star[i].SetPos(Vec2(xDist(rng), float(i+1)));
 	}
+	/*for (int i=0; i < 2; i++)
+	{
+		upgrades[i] = (int)pupgrade(rng);
+	}
+	for (int i = 0; i < 2; i++)
+	{
+		for (int j = 0; j < 20; j++)
+		{
+			if (j == upgrades[i])
+			{
+				upgrade[i].SetPos(object[j].GetPos());
+			}
+		}
+	}*/
 }
 
 void Game::Go()
@@ -28631,6 +28646,10 @@ void Game::ComposeFrame()
 			//	object[i].DrawBox(0, 0, 255, gfx);
 			player.DrawCross(60, 0,0 , gfx);
 		}
+		/*for (int i = 0; i < 2; i++)
+		{
+			upgrade[i].DrawUpgrade(96, 96, 96, gfx);
+		}*/
 	}
 	if (isOver)//Draw End Screen
 	{
