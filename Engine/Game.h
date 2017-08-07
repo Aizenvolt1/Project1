@@ -59,7 +59,7 @@ private:
 	bool Change_Color = false;
 	Player player;
 	Object object[20];
-	Fire fire[2];
+	Fire fire[4];
 	Score s;
 	EnemyFire enemf[20];
 	FrameTimer ft;
@@ -84,4 +84,7 @@ private:
 	bool elaserstart = true;
 	bool background = true;
 	bool loseGame = true;
+	int framecounter = 0;
+	int fireborcounter = 0;
+	int defaultfcount = 2;
 };

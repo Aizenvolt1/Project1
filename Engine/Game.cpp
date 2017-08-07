@@ -80,16 +80,16 @@ void Game::UpdateModel()
 			backg.Play();
 			background = false;
 		}
-		if (wnd.kbd.KeyIsPressed('V') && fcount <= 2 && permitfire == false && DesCount<20)//Player Controls
+		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount<20)//Player Controls
 		{
-			if (fcount >= 0 && fcount < 2)
+			if (fcount >= 0 && fcount < defaultfcount)
 			{
 				fcount1 = fcount;
 				player.SetInhi(true);
 				fire[fcount1].SetPos(player.GetPos());
 				permitfire = true;
 			}
-			if (fcount <= 1)
+			if (fcount <= defaultfcount-1)
 			{
 				fcount++;
 				plaserstart = true;
@@ -97,36 +97,55 @@ void Game::UpdateModel()
 
 		}
 		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver);
+		if (permitfire == true)
+		{
+			framecounter++;
+		}
 		if (player.GetInhi()==true)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
 				fire[i].Border_Collide(gfx);//Fire hit Border Check
-				fire[i].DrawFire(204,0,0,fire[i].GetFx(), fire[i].GetFy(),gfx);//Draw Fire Check
+				fire[i].DrawFire(204, 0, 0, fire[i].GetFx(), fire[i].GetFy(), gfx);//Draw Fire Check
 				if (plaserstart)
 				{
-					plaser.Play(1.0f,0.1f);
+					plaser.Play(1.0f, 0.1f);
 					plaserstart = false;
 				}
-				if (fire[0].GetBor() == true && fire[1].GetBor() == true)//Fire reload check
+			}
+			for (Fire& f : fire)//Fire reload check
+			{
+				if (f.GetBor() == true)
 				{
-					fcount = 0;
-					fcount1 = 0;
-				}					//Fire reload check
+					fireborcounter++;
+				}
+			}
+			if (fireborcounter == defaultfcount)
+			{
+				fcount = 0;
+				fcount1 = 0;
+			}
+			else
+			{
+				fireborcounter = 0;
 			}
 		}
-		for (int i = 0; i < 2; i++)//Fire movement
+		for (Fire& f:fire)//Fire movement
 		{
-			if (fire[i].GetBor() == false)
+			if (f.GetBor() == false)
 			{
-				fire[i].FireUpdate(dt);
+				f.FireUpdate(dt);
+			}
+			if (framecounter > 30 && defaultfcount>1)
+			{
+				permitfire = false;
+				framecounter = 0;
+			}
+			else if(f.GetBor() == true && defaultfcount==1)
+			{
+				permitfire = false;
 			}
 		}
-		for (int y = 0; y < 1; y++)//Second Fire enable
-			{
-			if (fire[y].GetFy() < 395)
-				permitfire= false;
-			}
 		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 		{
 			object[i].Update(gfx,dt);
@@ -137,7 +156,7 @@ void Game::UpdateModel()
 			/*	enemf[i].firstf = true;*/
 				enemf[i].SetEFy(object[i].GetOy());
 			}
-			for (int y = 0; y < 2; y++)
+			for (int y = 0; y < defaultfcount; y++)
 			{
 				object[i].Object_Collide(fire[y]);
 			}
