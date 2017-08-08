@@ -1,5 +1,7 @@
 #include "Upgrade.h"
 #include "Graphics.h"
+#include "Object.h"
+#include "Player.h"
 
 void Upgrade::DrawUpgrade(int r, int g, int b, Graphics & gfx)
 {
@@ -23,3 +25,87 @@ Vec2 Upgrade::GetPos() const
 {
 	return pos;
 }
+
+void Upgrade::Border_Collide(float & x, float & y, float & vx, Graphics & gfx)
+{
+	if (pos.x + 10.0f >= (float)gfx.ScreenWidth)
+	{
+		if (pos.y < 500.0f)
+		{
+			pos.y += 30.0;
+			pos.x = (float)gfx.ScreenWidth - 11.0f;
+			vel.x = -vel.x;
+		}
+		else
+		{
+			pos.x = (float)gfx.ScreenWidth - 11.0f;
+			vel.x = -vel.x;
+		}
+	}
+	if (pos.x - 10.0f < 0.0f)
+	{
+		if (pos.y < 500.0f)
+		{
+			pos.y += 30.0f;
+			pos.x = 10.0f;
+			vel.x = -vel.x;
+		}
+		else
+		{
+			pos.x = 10.0f;
+			vel.x = -vel.x;
+		}
+	}
+}
+
+void Upgrade::Update(Graphics & gfx, float dt,Object& object)
+{
+	if (object.GetDes() == false)
+	{
+		pos.x += vel.x*dt*60.0f;
+		Border_Collide(pos.x, pos.y, vel.x, gfx);
+	}
+	else if(object.GetDes() == true && pos.y<gfx.ScreenHeight - 8)
+	{
+		pos.y += 3.0f*dt*60.0f;
+	}
+	else if (object.GetDes() == true && pos.y > gfx.ScreenHeight - 8)
+	{
+		upgradeDes = true;
+		pos.y = gfx.ScreenHeight - 5;
+	}
+}
+
+void Upgrade::SetVel(const Vec2 & vel_in)
+{
+	vel= vel_in;
+}
+
+bool Upgrade::GetDes() const
+{
+	return upgradeDes;
+}
+
+void Upgrade::SetDes(bool setdes)
+{
+	upgradeDes = setdes;
+}
+
+void Upgrade::Player_Collide(Player &player)
+{
+
+	
+
+}
+
+float Upgrade::GetUx() const
+{
+	return pos.x;
+}
+
+float Upgrade::GetUy() const
+{
+	return pos.y;
+}
+
+

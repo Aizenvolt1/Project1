@@ -29,10 +29,12 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
+	rng(rd()),
 	xDist(10.0f,790.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f),
-	pupgrade(0.0f,19.0f),
+	/*vDist(0.0f,0.0f),*/
+	pupgrade(0,19),
 	start(L"Sounds\\ready.wav"),
 	endwin(L"Sounds\\winsound.wav"),
 	plaser(L"Sounds\\plaser.wav"),
@@ -61,9 +63,9 @@ Game::Game( MainWindow& wnd )
 	{
 		star[i].SetPos(Vec2(xDist(rng), float(i+1)));
 	}
-	/*for (int i=0; i < 2; i++)
+	for (int i=0; i < 2; i++)
 	{
-		upgrades[i] = (int)pupgrade(rng);
+		upgrades[i] = pupgrade(rng);
 	}
 	for (int i = 0; i < 2; i++)
 	{
@@ -72,9 +74,10 @@ Game::Game( MainWindow& wnd )
 			if (j == upgrades[i])
 			{
 				upgrade[i].SetPos(object[j].GetPos());
+				upgrade[i].SetVel(object[j].GetVel());
 			}
 		}
-	}*/
+	}
 }
 
 void Game::Go()
@@ -128,9 +131,9 @@ void Game::UpdateModel()
 					plaserstart = false;
 				}
 			}
-			for (Fire& f : fire)//Fire reload check
+			for (int i = 0; i < defaultfcount;i++)//Fire reload check
 			{
-				if (f.GetBor() == true)
+				if (fire[i].GetBor() == true)
 				{
 					fireborcounter++;
 				}
@@ -145,18 +148,18 @@ void Game::UpdateModel()
 				fireborcounter = 0;
 			}
 		}
-		for (Fire& f:fire)//Fire movement
+		for (int i = 0; i < defaultfcount; i++)//Fire movement
 		{
-			if (f.GetBor() == false)
+			if (fire[i].GetBor() == false)
 			{
-				f.FireUpdate(dt);
+				fire[i].FireUpdate(dt);
 			}
 			if (framecounter > 30 && defaultfcount>1)
 			{
 				permitfire = false;
 				framecounter = 0;
 			}
-			else if(f.GetBor() == true && defaultfcount==1)
+			else if(fire[i].GetBor() == true && defaultfcount==1)
 			{
 				permitfire = false;
 			}
@@ -174,6 +177,20 @@ void Game::UpdateModel()
 			for (int y = 0; y < defaultfcount; y++)
 			{
 				object[i].Object_Collide(fire[y]);
+			}
+		}
+		for (int j = 0; j < 2; j++)//Upgrade movement
+		{
+			for (int i = 0; i < 20; i++)
+			{
+				if (i == upgrades[j])
+					upgrade[j].Update(gfx, dt, object[i]);
+			}
+			if ((upgrade[j].GetUx() >= player.GetPx() - 15.0f) && (upgrade[j].GetUx() <= player.GetPx() + 15.0f) && (upgrade[j].GetUy() >= player.GetPy() - 15.0f) && (upgrade[j].GetUy() <= player.GetPy() + 15.0f))
+			{
+				upgrade[j].SetDes(true);
+				upgrade[j].SetPos(Vec2(5.00f, 5.00f));
+				defaultfcount++;
 			}
 		}
 		for (int i = 0; i < 20; i++)//Objects fire movement
@@ -255,6 +272,7 @@ void Game::UpdateModel()
 		backg.StopAll();
 		if (wnd.kbd.KeyIsPressed('R'))
 		{
+			defaultfcount = 1;
 			endlose.StopAll();
 			isStarted = false;
 			isOver = false;
@@ -264,16 +282,32 @@ void Game::UpdateModel()
 				if (i <= 9)
 				{
 					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
-					adder += 60;
+					adder += 60.0f;
 					enemf[i].EnemyInit(xDist(rng));
 				}
 				if (i == 9)
-					adder = 60;
-				else if (i >= 10 && i < 20)
+					adder = 60.0f;
+				else if (i >= 10 && i<20)
 				{
 					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
-					adder += 60;
+					adder += 60.0f;
 					enemf[i].EnemyInit(xDist(rng));
+				}
+			}
+			for (int i = 0; i < 2; i++)
+			{
+				upgrades[i] = pupgrade(rng);
+				upgrade[i].SetDes(false);
+			}
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 20; j++)
+				{
+					if (j == upgrades[i])
+					{
+						upgrade[i].SetPos(object[j].GetPos());
+						upgrade[i].SetVel(object[j].GetVel());
+					}
 				}
 			}
 			fcount = 0;
@@ -28638,6 +28672,14 @@ void Game::ComposeFrame()
 		{
 			star[y].DrawStars(255, 255, 255, gfx);
 		}
+		for (int i = 0; i < 2; i++)
+		{
+			for (int j = 0; j < 20; j++)
+			{
+				if (j == upgrades[i] /*&& object[j].GetDes()==true*/ && upgrade[i].GetDes() == false)
+					upgrade[i].DrawUpgrade(96, 96, 96, gfx);
+			}
+		}
 		for (int i = 0; i < 20; i++)
 		{
 			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
@@ -28646,10 +28688,6 @@ void Game::ComposeFrame()
 			//	object[i].DrawBox(0, 0, 255, gfx);
 			player.DrawCross(60, 0,0 , gfx);
 		}
-		/*for (int i = 0; i < 2; i++)
-		{
-			upgrade[i].DrawUpgrade(96, 96, 96, gfx);
-		}*/
 	}
 	if (isOver)//Draw End Screen
 	{

@@ -26,7 +26,7 @@
 #include "Player.h"
 #include "Object.h"
 #include "Fire.h"
-#include <Random>
+#include <random>
 #include "Score.h"
 #include "EnemyFire.h"
 #include "FrameTimer.h"
@@ -52,12 +52,9 @@ private:
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
 	std::uniform_real_distribution<float> vDist;
-	std::uniform_real_distribution<float> pupgrade;
+	std::uniform_int_distribution<int> pupgrade;
 	MainWindow& wnd;
 	Graphics gfx;
-	int r_fixed = 255;
-	int g_fixed = 255;
-	int b_fixed = 255;
 	bool collide = false;
 	bool Change_Color = false;
 	Player player;
@@ -90,6 +87,6 @@ private:
 	bool loseGame = true;
 	int framecounter = 0;
 	int fireborcounter = 0;
-	int defaultfcount = 2;
+	int defaultfcount = 1;
 	int upgrades[2];
 };

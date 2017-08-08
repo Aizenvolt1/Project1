@@ -44,6 +44,11 @@ Vec2 Object::GetPos() const
 	return pos;
 }
 
+Vec2 Object::GetVel() const
+{
+	return vel;
+}
+
 void Object::SetPos(const Vec2 & pos_in)
 {
 	pos = pos_in;
