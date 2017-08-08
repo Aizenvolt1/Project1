@@ -249,6 +249,8 @@
     <Media Include="Sounds\elaser.wav" />
     <Media Include="Sounds\losesound.wav" />
     <Media Include="Sounds\plaser.wav" />
+    <Media Include="Sounds\powerdown.wav" />
+    <Media Include="Sounds\powerup.wav" />
     <Media Include="Sounds\ready.wav" />
     <Media Include="Sounds\winsound.wav" />
   </ItemGroup>

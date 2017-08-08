@@ -40,7 +40,9 @@ Game::Game( MainWindow& wnd )
 	plaser(L"Sounds\\plaser.wav"),
 	elaser(L"Sounds\\elaser.wav"),
 	backg(L"Sounds\\background.wav",0.0f,93.0f),
-	endlose(L"Sounds\\losesound.wav")
+	endlose(L"Sounds\\losesound.wav"),
+	upgradeup(L"Sounds\\powerup.wav"),
+	upgradedown(L"Sounds\\powerdown.wav")
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -65,7 +67,18 @@ Game::Game( MainWindow& wnd )
 	}
 	for (int i=0; i < 2; i++)
 	{
+		while (acceptu == false) 
+		{
+			for (int j = 0; j < i + 1; j++)
+			{
+				if (upgrades[j] != pupgrade(rng))
+					acceptu = true;
+				else
+					acceptu = false;
+			}
+		}
 		upgrades[i] = pupgrade(rng);
+		acceptu = false;
 	}
 	for (int i = 0; i < 2; i++)
 	{
@@ -188,9 +201,15 @@ void Game::UpdateModel()
 			}
 			if ((upgrade[j].GetUx() >= player.GetPx() - 15.0f) && (upgrade[j].GetUx() <= player.GetPx() + 15.0f) && (upgrade[j].GetUy() >= player.GetPy() - 15.0f) && (upgrade[j].GetUy() <= player.GetPy() + 15.0f))
 			{
+				wupgrade = true;
 				upgrade[j].SetDes(true);
 				upgrade[j].SetPos(Vec2(5.00f, 5.00f));
 				defaultfcount++;
+				if (wupgrade)
+				{
+					upgradeup.Play();
+					wupgrade = false;
+				}
 			}
 		}
 		for (int i = 0; i < 20; i++)//Objects fire movement
@@ -207,12 +226,25 @@ void Game::UpdateModel()
 				if ((enemf[i].GetEFx() >= player.GetPx() - 15.0f) && (enemf[i].GetEFx()<= player.GetPx() + 15.0f) && (enemf[i].GetEFy() >= player.GetPy() - 15.0f) && (enemf[i].GetEFy() <= player.GetPy() + 15.0f))
 				{
 					enemf[i].SetCF(false);
-					if (loseGame)
+					if (defaultfcount == 1)
 					{
-						endlose.Play();
-						loseGame = false;
+						if (loseGame)
+						{
+							endlose.Play();
+							loseGame = false;
+						}
+						isOver = true;
 					}
-					isOver = true;
+					else if (defaultfcount > 1)
+					{
+						wdowngrade = true;
+						defaultfcount--;
+						if (wdowngrade)
+						{
+							upgradedown.Play();
+							wdowngrade = false;
+						}
+					}
 				}
 				if (enemf[i].GetEFy() > 570.0f)
 				{
@@ -296,7 +328,18 @@ void Game::UpdateModel()
 			}
 			for (int i = 0; i < 2; i++)
 			{
+				while (acceptu == false)
+				{
+					for (int j = 0; j < i + 1; j++)
+					{
+						if (upgrades[j] != pupgrade(rng))
+							acceptu = true;
+						else
+							acceptu = false;
+					}
+				}
 				upgrades[i] = pupgrade(rng);
+				acceptu = false;
 				upgrade[i].SetDes(false);
 			}
 			for (int i = 0; i < 2; i++)
@@ -28676,7 +28719,7 @@ void Game::ComposeFrame()
 		{
 			for (int j = 0; j < 20; j++)
 			{
-				if (j == upgrades[i] /*&& object[j].GetDes()==true*/ && upgrade[i].GetDes() == false)
+				if (j == upgrades[i] && object[j].GetDes()==true && upgrade[i].GetDes() == false)
 					upgrade[i].DrawUpgrade(96, 96, 96, gfx);
 			}
 		}
