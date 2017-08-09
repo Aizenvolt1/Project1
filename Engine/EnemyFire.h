@@ -14,8 +14,9 @@ public:
 	void SetEFy(float efy);
 	void UpdateEF(float dt);
 	bool firstf = false;
+	bool Player_Collide(Vec2 &pos_in,Graphics &gfx);
 private:
-	Vec2 pos;
+	Vec2 pos= Vec2(10.0f, 10.0f);
 	Vec2 vel=Vec2(0.0f,6.0f);
 	bool createfire = false;
 };

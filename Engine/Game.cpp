@@ -167,7 +167,7 @@ void Game::UpdateModel()
 			{
 				fire[i].FireUpdate(dt);
 			}
-			if (framecounter > framecounterlimit && defaultfcount>1)
+			if (framecounter > framecounterlimit*dt*60.0f && defaultfcount>1)
 			{
 				permitfire = false;
 				framecounter = 0;
@@ -216,14 +216,14 @@ void Game::UpdateModel()
 		{
 			if (enemf[i].GetCF() == true)
 			{
-				enemf[i].CreateFire(0,0,204,gfx);
+				enemf[i].CreateFire(0, 0, 204, gfx);
 				if (elaserstart)
 				{
 					elaser.Play(1.0f,0.02f);
 					elaserstart = false;
 				}
 				enemf[i].UpdateEF(dt);
-				if ((enemf[i].GetEFx() >= player.GetPx() - 15.0f) && (enemf[i].GetEFx()<= player.GetPx() + 15.0f) && (enemf[i].GetEFy() >= player.GetPy() - 15.0f) && (enemf[i].GetEFy() <= player.GetPy() + 15.0f))
+				if (enemf[i].Player_Collide(player.GetPos(), gfx)==true)
 				{
 					enemf[i].SetCF(false);
 					if (defaultfcount == 1)
@@ -316,6 +316,7 @@ void Game::UpdateModel()
 					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
 					adder += 60.0f;
 					enemf[i].EnemyInit(xDist(rng));
+					enemf[i].SetEFy(10.0f);
 				}
 				if (i == 9)
 					adder = 60.0f;
@@ -324,9 +325,10 @@ void Game::UpdateModel()
 					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
 					adder += 60.0f;
 					enemf[i].EnemyInit(xDist(rng));
+					enemf[i].SetEFy(10.0f);
 				}
 			}
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < upgradecounter; i++)
 			{
 				while (acceptu == false)
 				{
@@ -342,7 +344,7 @@ void Game::UpdateModel()
 				acceptu = false;
 				upgrade[i].SetDes(false);
 			}
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < upgradecounter; i++)
 			{
 				for (int j = 0; j < objectnumber; j++)
 				{
