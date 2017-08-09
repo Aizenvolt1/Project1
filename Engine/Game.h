@@ -90,8 +90,11 @@ private:
 	bool wupgrade = true;
 	bool wdowngrade = true;
 	int framecounter = 0;
+	int framecounterlimit = 30;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
 	int upgrades[2];
+	int upgradecounter = 2;
+	int objectnumber = 20;
 	bool acceptu = false;
 };

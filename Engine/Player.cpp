@@ -18,9 +18,9 @@ void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 	}
 }
 
-void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,bool &isOver)
+void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,bool &isOver,int &objectnumber)
 {
-	if (Descount < 20)
+	if (Descount < objectnumber)
 	{
 		if (kbd.KeyIsPressed(VK_LEFT))
 		{

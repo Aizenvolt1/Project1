@@ -1,7 +1,6 @@
 #include "Upgrade.h"
 #include "Graphics.h"
 #include "Object.h"
-#include "Player.h"
 
 void Upgrade::DrawUpgrade(int r, int g, int b, Graphics & gfx)
 {
@@ -89,13 +88,6 @@ bool Upgrade::GetDes() const
 void Upgrade::SetDes(bool setdes)
 {
 	upgradeDes = setdes;
-}
-
-void Upgrade::Player_Collide(Player &player)
-{
-
-	
-
 }
 
 float Upgrade::GetUx() const

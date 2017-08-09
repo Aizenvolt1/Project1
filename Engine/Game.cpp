@@ -44,7 +44,7 @@ Game::Game( MainWindow& wnd )
 	upgradeup(L"Sounds\\powerup.wav"),
 	upgradedown(L"Sounds\\powerdown.wav")
 {
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < objectnumber; i++)
 	{
 		if (i <= 9)
 		{
@@ -54,7 +54,7 @@ Game::Game( MainWindow& wnd )
 		}
 		if (i == 9)
 			adder = 60.0f;
-		else if(i>=10 && i<20)
+		else if(i>=10 && i<objectnumber)
 		{
 		object[i].Init(Vec2(adder, 80.0f), vDist(rng));
 		adder += 60.0f;
@@ -65,7 +65,7 @@ Game::Game( MainWindow& wnd )
 	{
 		star[i].SetPos(Vec2(xDist(rng), float(i+1)));
 	}
-	for (int i=0; i < 2; i++)
+	for (int i=0; i < upgradecounter; i++)
 	{
 		while (acceptu == false) 
 		{
@@ -80,9 +80,9 @@ Game::Game( MainWindow& wnd )
 		upgrades[i] = pupgrade(rng);
 		acceptu = false;
 	}
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < upgradecounter; i++)
 	{
-		for (int j = 0; j < 20; j++)
+		for (int j = 0; j < objectnumber; j++)
 		{
 			if (j == upgrades[i])
 			{
@@ -111,7 +111,7 @@ void Game::UpdateModel()
 			backg.Play();
 			background = false;
 		}
-		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount<20)//Player Controls
+		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount<objectnumber)//Player Controls
 		{
 			if (fcount >= 0 && fcount < defaultfcount)
 			{
@@ -127,7 +127,7 @@ void Game::UpdateModel()
 			}
 
 		}
-		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver);
+		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver,objectnumber);
 		if (permitfire == true)
 		{
 			framecounter++;
@@ -167,7 +167,7 @@ void Game::UpdateModel()
 			{
 				fire[i].FireUpdate(dt);
 			}
-			if (framecounter > 30 && defaultfcount>1)
+			if (framecounter > framecounterlimit && defaultfcount>1)
 			{
 				permitfire = false;
 				framecounter = 0;
@@ -177,7 +177,7 @@ void Game::UpdateModel()
 				permitfire = false;
 			}
 		}
-		for (int i = 0; i < 20; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
+		for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 		{
 			object[i].Update(gfx,dt);
 			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx()-2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes()==false)
@@ -192,9 +192,9 @@ void Game::UpdateModel()
 				object[i].Object_Collide(fire[y]);
 			}
 		}
-		for (int j = 0; j < 2; j++)//Upgrade movement
+		for (int j = 0; j < upgradecounter; j++)//Upgrade movement
 		{
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < objectnumber; i++)
 			{
 				if (i == upgrades[j])
 					upgrade[j].Update(gfx, dt, object[i]);
@@ -212,7 +212,7 @@ void Game::UpdateModel()
 				}
 			}
 		}
-		for (int i = 0; i < 20; i++)//Objects fire movement
+		for (int i = 0; i < objectnumber; i++)//Objects fire movement
 		{
 			if (enemf[i].GetCF() == true)
 			{
@@ -268,7 +268,7 @@ void Game::UpdateModel()
 		{
 			start.StopAll();
 			isStarted = true;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < objectnumber; i++)
 			{
 				object[i].SetDes(false);
 			}
@@ -282,14 +282,14 @@ void Game::UpdateModel()
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
 	{
 		/*s.DrawScore(gfx);*/
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < objectnumber; i++)
 		{
 			if (object[i].GetDes() == true)
 				DesCount++;
 		}
-		if(DesCount < 20)
+		if(DesCount < objectnumber)
 			DesCount = 0;
-		if (DesCount == 20)
+		if (DesCount == objectnumber)
 		{
 			if (winGame)
 			{
@@ -309,7 +309,7 @@ void Game::UpdateModel()
 			isStarted = false;
 			isOver = false;
 			adder = 80;
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < objectnumber; i++)
 			{
 				if (i <= 9)
 				{
@@ -319,7 +319,7 @@ void Game::UpdateModel()
 				}
 				if (i == 9)
 					adder = 60.0f;
-				else if (i >= 10 && i<20)
+				else if (i >= 10 && i<objectnumber)
 				{
 					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
 					adder += 60.0f;
@@ -344,7 +344,7 @@ void Game::UpdateModel()
 			}
 			for (int i = 0; i < 2; i++)
 			{
-				for (int j = 0; j < 20; j++)
+				for (int j = 0; j < objectnumber; j++)
 				{
 					if (j == upgrades[i])
 					{
@@ -28715,15 +28715,15 @@ void Game::ComposeFrame()
 		{
 			star[y].DrawStars(255, 255, 255, gfx);
 		}
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < upgradecounter; i++)
 		{
-			for (int j = 0; j < 20; j++)
+			for (int j = 0; j < objectnumber; j++)
 			{
 				if (j == upgrades[i] && object[j].GetDes()==true && upgrade[i].GetDes() == false)
 					upgrade[i].DrawUpgrade(96, 96, 96, gfx);
 			}
 		}
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < objectnumber; i++)
 		{
 			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
 				object[i].DrawBox(0, 0, 60, gfx);
@@ -28736,11 +28736,11 @@ void Game::ComposeFrame()
 	{
 		DrawGameOver(358, 268);
 		player.SetPos(Vec2(400.0f, 550.0f));
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < upgradecounter; i++)
 		{
 			fire[i].SetPos(Vec2(0.0f,0.0f));
 		}
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < objectnumber; i++)
 		{
 			enemf[i].SetCF(false);
 		}

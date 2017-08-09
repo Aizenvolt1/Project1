@@ -6,7 +6,7 @@ class Player
 {
 public:
 	void DrawCross(int r, int g, int b, Graphics &gfx);
-	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,bool& isOver);
+	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,bool& isOver,int &objectnumber);
 	Vec2 GetPos() const;
 	float GetPx() const;
 	float GetPy() const;

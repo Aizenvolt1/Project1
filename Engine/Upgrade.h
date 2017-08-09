@@ -2,7 +2,6 @@
 #include "Vec2.h"
 #include "Graphics.h"
 #include "Object.h"
-#include "Player.h"
 
 class Upgrade
 {
@@ -15,7 +14,6 @@ public:
 	void SetVel(const Vec2 &vel_in);
 	bool GetDes() const;
 	void SetDes(bool setdes);
-	void Player_Collide(Player &player);
 	float GetUx() const;
 	float GetUy() const;
 private:
