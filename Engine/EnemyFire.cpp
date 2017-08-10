@@ -41,7 +41,7 @@ void EnemyFire::EnemyInit(float in_x)
 	pos.x = in_x;
 }
 
-bool EnemyFire::Player_Collide(Vec2 &pos_in,Graphics &gfx)
+bool EnemyFire::Player_Collide(Vec2 &pos_in)
 {
 	const int in_x = (int)pos_in.x;
 	const int in_y = (int)pos_in.y;

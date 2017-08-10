@@ -16,7 +16,7 @@ public:
 	void SetDes(bool setdes);
 	float GetUx() const;
 	float GetUy() const;
-	bool Player_Upgrade(Vec2 &pos_in, Graphics &gfx);
+	bool Player_Upgrade(Vec2 &pos_in);
 private:
 	Vec2 pos;
 	Vec2 vel;

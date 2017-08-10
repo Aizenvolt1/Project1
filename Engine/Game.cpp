@@ -189,7 +189,12 @@ void Game::UpdateModel()
 			}
 			for (int y = 0; y < defaultfcount; y++)
 			{
-				object[i].Object_Collide(fire[y]);
+				if (object[i].Object_Collide(fire[y].GetPos()))
+				{
+					object[i].SetDes(true);
+					fire[y].SetPos(Vec2(1.00f, 1.00f));
+					object[i].SetPos(Vec2(100.0f, 570.0f));
+				}
 			}
 		}
 		for (int j = 0; j < upgradecounter; j++)//Upgrade movement
@@ -199,7 +204,7 @@ void Game::UpdateModel()
 				if (i == upgrades[j])
 					upgrade[j].Update(gfx, dt, object[i]);
 			}
-			if (upgrade[j].Player_Upgrade(player.GetPos(),gfx))
+			if (upgrade[j].Player_Upgrade(player.GetPos()))
 			{
 				wupgrade = true;
 				upgrade[j].SetDes(true);
@@ -223,7 +228,7 @@ void Game::UpdateModel()
 					elaserstart = false;
 				}
 				enemf[i].UpdateEF(dt);
-				if (enemf[i].Player_Collide(player.GetPos(), gfx)==true)
+				if (enemf[i].Player_Collide(player.GetPos()))
 				{
 					enemf[i].SetCF(false);
 					if (defaultfcount == 1)

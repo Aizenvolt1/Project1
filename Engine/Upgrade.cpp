@@ -100,7 +100,7 @@ float Upgrade::GetUy() const
 	return pos.y;
 }
 
-bool Upgrade::Player_Upgrade(Vec2 &pos_in, Graphics &gfx)
+bool Upgrade::Player_Upgrade(Vec2 &pos_in)
 {
 	const int in_x = (int)pos_in.x;
 	const int in_y = (int)pos_in.y;

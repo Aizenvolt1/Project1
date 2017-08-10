@@ -10,16 +10,26 @@ void Object::Init(const Vec2 &pos_in, float vx)
 	vel.x = vx;
 }
 
-void Object::Object_Collide(Fire &fire)
+bool Object::Object_Collide(Vec2 &pos_in)
 {
-
-	if ((fire.GetFx() >=pos.x - 10) && (fire.GetFx() <= pos.x + 10) && (fire.GetFy() >= pos.y - 10) && (fire.GetFy() <= pos.y + 10))
+	const int in_x = (int)pos_in.x;
+	const int in_y = (int)pos_in.y;
+	int k = 10;
+	int x;
+	int y;
+	bool finish = false;
+	for (y = -10; y <= 10; y++)
 	{
-		Destroy = true;
-		fire.SetPos(Vec2(1.00f, 1.00f));
-		SetPos(Vec2(100.0f, 570.0f));
+		for (x = -k; x <= k; x++)
+		{
+			if ((((int)pos.x + x) == in_x) && (((int)pos.y + y) >= (in_y - 7) && ((int)pos.y + y) <= (in_y - 2)))
+				finish = true;
+		}
+		k--;
+		if (k == -1)
+			break;
 	}
-
+	return finish;
 }
 
 void Object::DrawBox(int r, int g, int b,Graphics &gfx)
@@ -36,6 +46,8 @@ void Object::DrawBox(int r, int g, int b,Graphics &gfx)
 			gfx.PutPixel(x + in_x, y + in_y, r, g, b);
 		}
 		k--;
+		if (k == -1)
+			break;
 	}
 }
 
