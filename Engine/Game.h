@@ -58,7 +58,7 @@ private:
 	bool collide = false;
 	bool Change_Color = false;
 	Player player;
-	Object object[20];
+	Object object[30];
 	Fire fire[4];
 	Score s;
 	EnemyFire enemf[20];
@@ -89,6 +89,7 @@ private:
 	bool loseGame = true;
 	bool wupgrade = true;
 	bool wdowngrade = true;
+	int stage = 1;
 	int framecounter = 0;
 	int framecounterlimit = 30;
 	int fireborcounter = 0;

@@ -18,7 +18,7 @@ void Player::DrawCross(int r, int g, int b,Graphics &gfx)
 	}
 }
 
-void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,bool &isOver,int &objectnumber)
+void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,int &stage,int &objectnumber,bool &isOver)
 {
 	if (Descount < objectnumber)
 	{

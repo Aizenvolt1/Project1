@@ -127,7 +127,7 @@ void Game::UpdateModel()
 			}
 
 		}
-		player.UpdateP(wnd.kbd,gfx,dt,DesCount,isOver,objectnumber);
+		player.UpdateP(wnd.kbd,gfx,dt,DesCount,stage,objectnumber,isOver);
 		if (permitfire == true)
 		{
 			framecounter++;
@@ -364,6 +364,63 @@ void Game::UpdateModel()
 			fcount1 = 0;
 		}
 		background = true;
+		if (stage == 2)
+		{
+			defaultfcount = 1;
+			endlose.StopAll();
+			isStarted = false;
+			isOver = false;
+			adder = 80;
+			objectnumber = 30;
+			for (int i = 0; i < objectnumber; i++)
+			{
+				if (i <= 9)
+				{
+					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
+					adder += 60.0f;
+					enemf[i].EnemyInit(xDist(rng));
+					enemf[i].SetEFy(10.0f);
+				}
+				if (i == 9)
+					adder = 60.0f;
+				else if (i >= 10 && i<objectnumber)
+				{
+					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
+					adder += 60.0f;
+					enemf[i].EnemyInit(xDist(rng));
+					enemf[i].SetEFy(10.0f);
+				}
+			}
+			for (int i = 0; i < upgradecounter; i++)
+			{
+				while (acceptu == false)
+				{
+					for (int j = 0; j < i + 1; j++)
+					{
+						if (upgrades[j] != pupgrade(rng))
+							acceptu = true;
+						else
+							acceptu = false;
+					}
+				}
+				upgrades[i] = pupgrade(rng);
+				acceptu = false;
+				upgrade[i].SetDes(false);
+			}
+			for (int i = 0; i < upgradecounter; i++)
+			{
+				for (int j = 0; j < objectnumber; j++)
+				{
+					if (j == upgrades[i])
+					{
+						upgrade[i].SetPos(object[j].GetPos());
+						upgrade[i].SetVel(object[j].GetVel());
+					}
+				}
+			}
+			fcount = 0;
+			fcount1 = 0;
+		}
 	}
 }
 void Game::DrawTitleScreen(int x, int y)
