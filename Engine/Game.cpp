@@ -199,7 +199,7 @@ void Game::UpdateModel()
 				if (i == upgrades[j])
 					upgrade[j].Update(gfx, dt, object[i]);
 			}
-			if ((upgrade[j].GetUx() >= player.GetPx() - 15.0f) && (upgrade[j].GetUx() <= player.GetPx() + 15.0f) && (upgrade[j].GetUy() >= player.GetPy() - 15.0f) && (upgrade[j].GetUy() <= player.GetPy() + 15.0f))
+			if (upgrade[j].Player_Upgrade(player.GetPos(),gfx))
 			{
 				wupgrade = true;
 				upgrade[j].SetDes(true);

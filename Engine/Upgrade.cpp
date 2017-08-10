@@ -100,4 +100,22 @@ float Upgrade::GetUy() const
 	return pos.y;
 }
 
-
+bool Upgrade::Player_Upgrade(Vec2 &pos_in, Graphics &gfx)
+{
+	const int in_x = (int)pos_in.x;
+	const int in_y = (int)pos_in.y;
+	int k = 0;
+	int x;
+	int y;
+	bool finish = false;
+	for (y = -10; y <= 10; y++)
+	{
+		for (x = -k; x <= k; x++)
+		{
+			if (((in_x + x) >= ((int)pos.x-5) && (in_x + x) <= ((int)pos.x + 4)) && ((in_y + y) >= ((int)pos.y - 5) && (in_y + y) <= ((int)pos.y + 4)))
+				finish = true;
+		}
+		k++;
+	}
+	return finish;
+}
