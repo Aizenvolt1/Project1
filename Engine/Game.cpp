@@ -34,7 +34,7 @@ Game::Game( MainWindow& wnd )
 	yDist(10,10),
 	vDist(1.2f,1.8f),
 	/*vDist(0.0f,0.0f),*/
-	pupgrade(0,19),
+	pupgrade(0, objectnumber-1),
 	start(L"Sounds\\ready.wav"),
 	endwin(L"Sounds\\winsound.wav"),
 	plaser(L"Sounds\\plaser.wav"),
@@ -48,18 +48,33 @@ Game::Game( MainWindow& wnd )
 	{
 		if (i <= 9)
 		{
-		object[i].Init(Vec2(adder, 50.0f), vDist(rng));
-		adder += 60.0f;
+		object[i].Init(Vec2(adderx, addery), vDist(rng));
+		adderx += 60.0f;
 		enemf[i].EnemyInit(xDist(rng));
 		}
 		if (i == 9)
-			adder = 60.0f;
-		else if(i>=10 && i<objectnumber)
 		{
-		object[i].Init(Vec2(adder, 80.0f), vDist(rng));
-		adder += 60.0f;
-		enemf[i].EnemyInit(xDist(rng));
+			adderx = 100.0f;
+			addery = 80.0f;
 		}
+		if (i >= 10 && i < 20)
+		{
+			object[i].Init(Vec2(adderx, addery), vDist(rng));
+			adderx += 60.0f;
+			enemf[i].EnemyInit(xDist(rng));
+		}
+		if (i == 19)
+		{
+			adderx = 100.0f;
+			addery = 100.0f;
+		}
+		if (i >= 20 && i < objectnumber)
+		{
+			object[i].Init(Vec2(adderx, addery), vDist(rng));
+			adderx += 60.0f;
+			enemf[i].EnemyInit(xDist(rng));
+		}
+
 	}
 	for (int i = 0; i < 599; i++)
 	{
@@ -69,12 +84,15 @@ Game::Game( MainWindow& wnd )
 	{
 		while (acceptu == false) 
 		{
-			for (int j = 0; j < i + 1; j++)
+			for (int j = 0; j < upgradecounter; j++)
 			{
 				if (upgrades[j] != pupgrade(rng))
 					acceptu = true;
 				else
+				{
 					acceptu = false;
+					break;
+				}
 			}
 		}
 		upgrades[i] = pupgrade(rng);
@@ -104,14 +122,14 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	if (isStarted==true && isOver==false)
+	if (isStarted == true && isOver == false)
 	{
 		if (background)
 		{
 			backg.Play();
 			background = false;
 		}
-		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount<objectnumber)//Player Controls
+		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount < objectnumber)//Player Controls
 		{
 			if (fcount >= 0 && fcount < defaultfcount)
 			{
@@ -120,19 +138,19 @@ void Game::UpdateModel()
 				fire[fcount1].SetPos(player.GetPos());
 				permitfire = true;
 			}
-			if (fcount <= defaultfcount-1)
+			if (fcount <= defaultfcount - 1)
 			{
 				fcount++;
 				plaserstart = true;
 			}
 
 		}
-		player.UpdateP(wnd.kbd,gfx,dt,DesCount,stage,objectnumber,isOver);
+		player.UpdateP(wnd.kbd, gfx, dt, DesCount, stage, objectnumber, isOver);
 		if (permitfire == true)
 		{
 			framecounter++;
 		}
-		if (player.GetInhi()==true)
+		if (player.GetInhi() == true)
 		{
 			for (int i = 0; i < fcount1 + 1; i++)
 			{
@@ -144,7 +162,7 @@ void Game::UpdateModel()
 					plaserstart = false;
 				}
 			}
-			for (int i = 0; i < defaultfcount;i++)//Fire reload check
+			for (int i = 0; i < defaultfcount; i++)//Fire reload check
 			{
 				if (fire[i].GetBor() == true)
 				{
@@ -167,24 +185,24 @@ void Game::UpdateModel()
 			{
 				fire[i].FireUpdate(dt);
 			}
-			if (framecounter > framecounterlimit*dt*60.0f && defaultfcount>1)
+			if (framecounter > framecounterlimit*dt*60.0f && defaultfcount > 1)
 			{
 				permitfire = false;
 				framecounter = 0;
 			}
-			else if(fire[i].GetBor() == true && defaultfcount==1)
+			else if (fire[i].GetBor() == true && defaultfcount == 1)
 			{
 				permitfire = false;
 			}
 		}
 		for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 		{
-			object[i].Update(gfx,dt);
-			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx()-2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes()==false)
+			object[i].Update(gfx, dt);
+			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes() == false)
 			{
 				enemf[i].SetCF(true);
 				elaserstart = true;
-			/*	enemf[i].firstf = true;*/
+				/*	enemf[i].firstf = true;*/
 				enemf[i].SetEFy(object[i].GetOy());
 			}
 			for (int y = 0; y < defaultfcount; y++)
@@ -224,7 +242,7 @@ void Game::UpdateModel()
 				enemf[i].CreateFire(0, 0, 204, gfx);
 				if (elaserstart)
 				{
-					elaser.Play(1.0f,0.02f);
+					elaser.Play(1.0f, 0.02f);
 					elaserstart = false;
 				}
 				enemf[i].UpdateEF(dt);
@@ -239,6 +257,7 @@ void Game::UpdateModel()
 							loseGame = false;
 						}
 						isOver = true;
+						playerlost = true;
 					}
 					else if (defaultfcount > 1)
 					{
@@ -257,12 +276,12 @@ void Game::UpdateModel()
 				}
 			}
 		}
-		for (int y = 0; y <599; y++)
+		for (int y = 0; y < 599; y++)
 		{
 			star[y].Update(gfx, dt);
 		}
 	}
-	else if(isStarted==false && isOver==false)//Check if game is not Started
+	else if (isStarted == false && isOver == false)//Check if game is not Started
 	{
 		if (firstGameStart)
 		{
@@ -292,7 +311,7 @@ void Game::UpdateModel()
 			if (object[i].GetDes() == true)
 				DesCount++;
 		}
-		if(DesCount < objectnumber)
+		if (DesCount < objectnumber)
 			DesCount = 0;
 		if (DesCount == objectnumber)
 		{
@@ -302,124 +321,27 @@ void Game::UpdateModel()
 				winGame = false;
 			}
 		}
-		
+
 	}
-	if (isOver==true)//Check if game is over and if yes enable R to replay
+	if (isOver == true)//Check if game is over and if yes enable R to replay
 	{
 		backg.StopAll();
 		if (wnd.kbd.KeyIsPressed('R'))
 		{
-			defaultfcount = 1;
-			endlose.StopAll();
-			isStarted = false;
-			isOver = false;
-			adder = 80;
-			for (int i = 0; i < objectnumber; i++)
-			{
-				if (i <= 9)
-				{
-					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
-					adder += 60.0f;
-					enemf[i].EnemyInit(xDist(rng));
-					enemf[i].SetEFy(10.0f);
-				}
-				if (i == 9)
-					adder = 60.0f;
-				else if (i >= 10 && i<objectnumber)
-				{
-					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
-					adder += 60.0f;
-					enemf[i].EnemyInit(xDist(rng));
-					enemf[i].SetEFy(10.0f);
-				}
-			}
-			for (int i = 0; i < upgradecounter; i++)
-			{
-				while (acceptu == false)
-				{
-					for (int j = 0; j < i + 1; j++)
-					{
-						if (upgrades[j] != pupgrade(rng))
-							acceptu = true;
-						else
-							acceptu = false;
-					}
-				}
-				upgrades[i] = pupgrade(rng);
-				acceptu = false;
-				upgrade[i].SetDes(false);
-			}
-			for (int i = 0; i < upgradecounter; i++)
-			{
-				for (int j = 0; j < objectnumber; j++)
-				{
-					if (j == upgrades[i])
-					{
-						upgrade[i].SetPos(object[j].GetPos());
-						upgrade[i].SetVel(object[j].GetVel());
-					}
-				}
-			}
-			fcount = 0;
-			fcount1 = 0;
+			NewStage(10, 2);
 		}
 		background = true;
 		if (stage == 2)
 		{
-			defaultfcount = 1;
-			endlose.StopAll();
-			isStarted = false;
-			isOver = false;
-			adder = 80;
-			objectnumber = 30;
-			for (int i = 0; i < objectnumber; i++)
-			{
-				if (i <= 9)
-				{
-					object[i].Init(Vec2(adder, 50.0f), vDist(rng));
-					adder += 60.0f;
-					enemf[i].EnemyInit(xDist(rng));
-					enemf[i].SetEFy(10.0f);
-				}
-				if (i == 9)
-					adder = 60.0f;
-				else if (i >= 10 && i<objectnumber)
-				{
-					object[i].Init(Vec2(adder, 80.0f), vDist(rng));
-					adder += 60.0f;
-					enemf[i].EnemyInit(xDist(rng));
-					enemf[i].SetEFy(10.0f);
-				}
-			}
-			for (int i = 0; i < upgradecounter; i++)
-			{
-				while (acceptu == false)
-				{
-					for (int j = 0; j < i + 1; j++)
-					{
-						if (upgrades[j] != pupgrade(rng))
-							acceptu = true;
-						else
-							acceptu = false;
-					}
-				}
-				upgrades[i] = pupgrade(rng);
-				acceptu = false;
-				upgrade[i].SetDes(false);
-			}
-			for (int i = 0; i < upgradecounter; i++)
-			{
-				for (int j = 0; j < objectnumber; j++)
-				{
-					if (j == upgrades[i])
-					{
-						upgrade[i].SetPos(object[j].GetPos());
-						upgrade[i].SetVel(object[j].GetVel());
-					}
-				}
-			}
-			fcount = 0;
-			fcount1 = 0;
+			NewStage(20, 2);
+		}
+		if (stage == 3)
+		{
+			NewStage(30, 2);
+		}
+		if (stage == 4)
+		{
+			playerwon = true;
 		}
 	}
 }
@@ -28767,6 +28689,89 @@ void Game::DrawGameOver(int x, int y)
 	gfx.PutPixel(82 + x, 63 + y, 0, 146, 14);
 	gfx.PutPixel(83 + x, 63 + y, 0, 146, 14);
 }
+void Game::NewStage(int objectnumber1,int upgradecounter1)
+{
+	objectnumber = objectnumber1;
+	upgradecounter = upgradecounter1;
+	defaultfcount = 1;
+	endlose.StopAll();
+	isStarted = true;
+	isOver = false;
+	adderx = 100.0f;
+	addery = 60.0f;
+	DesCount = 0;
+	winGame = true;
+	for (int i = 0; i < objectnumber; i++)
+	{
+		if (i <= 9)
+		{
+			object[i].Init(Vec2(adderx, addery), vDist(rng));
+			adderx += 60.0f;
+			enemf[i].EnemyInit(xDist(rng));
+			enemf[i].SetEFy(10.0f);
+			enemf[i].SetCF(false);
+			object[i].SetDes(false);
+		}
+		if (i == 9)
+		{
+			adderx = 100.0f;
+			addery = 80.0f;
+		}
+		if (i >= 10 && i < 20)
+		{
+			object[i].Init(Vec2(adderx, addery), vDist(rng));
+			adderx += 60.0f;
+			enemf[i].EnemyInit(xDist(rng));
+			enemf[i].SetEFy(10.0f);
+			enemf[i].SetCF(false);
+			object[i].SetDes(false);
+		}
+		if (i == 19)
+		{
+			adderx = 100.0f;
+			addery = 100.0f;
+		}
+		if (i >= 20 && i < objectnumber)
+		{
+			object[i].Init(Vec2(adderx, addery), vDist(rng));
+			adderx += 60.0f;
+			enemf[i].EnemyInit(xDist(rng));
+			enemf[i].SetEFy(10.0f);
+			enemf[i].SetCF(false);
+			object[i].SetDes(false);
+		}
+
+	}
+	for (int i = 0; i < upgradecounter; i++)
+	{
+		while (acceptu == false)
+		{
+			for (int j = 0; j < i + 1; j++)
+			{
+				if (upgrades[j] != pupgrade(rng))
+					acceptu = true;
+				else
+					acceptu = false;
+			}
+		}
+		upgrades[i] = pupgrade(rng);
+		acceptu = false;
+		upgrade[i].SetDes(false);
+	}
+	for (int i = 0; i < upgradecounter; i++)
+	{
+		for (int j = 0; j < objectnumber; j++)
+		{
+			if (j == upgrades[i])
+			{
+				upgrade[i].SetPos(object[j].GetPos());
+				upgrade[i].SetVel(object[j].GetVel());
+			}
+		}
+	}
+	fcount = 0;
+	fcount1 = 0;
+}
 void Game::ComposeFrame()
 {
 	if (!isStarted)//Draw Title Screen
@@ -28796,7 +28801,7 @@ void Game::ComposeFrame()
 			player.DrawCross(60, 0,0 , gfx);
 		}
 	}
-	if (isOver)//Draw End Screen
+	if ((isOver==true && playerwon==true) || (isOver==true && playerlost==true))//Draw End Screen
 	{
 		DrawGameOver(358, 268);
 		player.SetPos(Vec2(400.0f, 550.0f));
