@@ -327,23 +327,39 @@ void Game::UpdateModel()
 	if (isOver == true)//Check if game is over and if yes enable R to replay
 	{
 		backg.StopAll();
-		if (wnd.kbd.KeyIsPressed('R'))
+		if (playerlost == true)
 		{
-			stage = 1;
-			NewStage(10, 2);
+			if (wnd.kbd.KeyIsPressed('R'))
+			{
+				stage = 1;
+				NewStage(10, 2);
+				playerlost = false;
+				playerwon = false;
+			}
 		}
 		background = true;
-		if (stage == 2)
+		if (playerlost == false)
 		{
-			NewStage(20, 2);
-		}
-		if (stage == 3)
-		{
-			NewStage(30, 2);
-		}
-		if (stage == 4)
-		{
-			playerwon = true;
+			if (stage == 1)
+			{
+				NewStage(10, 2);
+				isOver = false;
+			}
+			if (stage == 2)
+			{
+				NewStage(20, 2);
+				isOver = false;
+			}
+			if (stage == 3)
+			{
+				NewStage(30, 2);
+				isOver = false;
+			}
+			if (stage == 4)
+			{
+				playerwon = true;
+				isOver = true;
+			}
 		}
 	}
 }
