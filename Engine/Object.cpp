@@ -32,7 +32,7 @@ bool Object::Object_Collide(Vec2 &pos_in)
 	return finish;
 }
 
-void Object::DrawBox(int r, int g, int b,Graphics &gfx)
+void Object::DrawTriangle(int r, int g, int b,Graphics &gfx)
 {
 	const int in_x = (int)pos.x;
 	const int in_y = (int)pos.y;

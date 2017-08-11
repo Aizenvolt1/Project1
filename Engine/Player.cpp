@@ -1,7 +1,7 @@
 #include "Graphics.h"
 #include "Player.h"
 
-void Player::DrawCross(int r, int g, int b,Graphics &gfx)
+void Player::DrawTriangle(int r, int g, int b,Graphics &gfx)
 {
 	const int in_x = (int)pos.x;
 	const int in_y = (int)pos.y;

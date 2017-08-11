@@ -5,7 +5,7 @@
 class Player
 {
 public:
-	void DrawCross(int r, int g, int b, Graphics &gfx);
+	void DrawTriangle(int r, int g, int b, Graphics &gfx);
 	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,int& stage,int &objectnumber,bool &isOver);
 	Vec2 GetPos() const;
 	float GetPx() const;
