@@ -82,11 +82,12 @@ Game::Game( MainWindow& wnd )
 	}
 	for (int i=0; i < upgradecounter; i++)
 	{
-		while (acceptu == false) 
+		while (acceptu == false)
 		{
+			randomizer = pupgrade(rng);
 			for (int j = 0; j < upgradecounter; j++)
 			{
-				if (upgrades[j] != pupgrade(rng))
+				if (upgrades[j] != randomizer)
 					acceptu = true;
 				else
 				{
@@ -95,7 +96,7 @@ Game::Game( MainWindow& wnd )
 				}
 			}
 		}
-		upgrades[i] = pupgrade(rng);
+		upgrades[i] = randomizer;
 		acceptu = false;
 	}
 	for (int i = 0; i < upgradecounter; i++)
@@ -28745,17 +28746,25 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 	}
 	for (int i = 0; i < upgradecounter; i++)
 	{
+		upgrades[i] = -1;
+	}
+	for (int i = 0; i < upgradecounter; i++)
+	{
 		while (acceptu == false)
 		{
-			for (int j = 0; j < i + 1; j++)
+			randomizer = pupgrade(rng);
+			for (int j = 0; j < upgradecounter; j++)
 			{
-				if (upgrades[j] != pupgrade(rng))
+				if (upgrades[j] != randomizer)
 					acceptu = true;
 				else
+				{
 					acceptu = false;
+					break;
+				}
 			}
 		}
-		upgrades[i] = pupgrade(rng);
+		upgrades[i] = randomizer;
 		acceptu = false;
 		upgrade[i].SetDes(false);
 	}

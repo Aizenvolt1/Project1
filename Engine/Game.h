@@ -99,7 +99,8 @@ private:
 	int framecounterlimit = 30;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
-	int upgrades[2] = { -1 };
+	int upgrades[2] = {-1,-1};
 	int upgradecounter = 2;
 	bool acceptu = false;
+	int randomizer = 0;
 };
