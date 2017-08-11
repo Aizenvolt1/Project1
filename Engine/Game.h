@@ -46,7 +46,9 @@ private:
 	void UpdateModel();
 	void DrawTitleScreen(int x, int y);
 	void DrawGameOver(int x, int y);
+	void NewStage(int objectnumber1, int upgradecounter1);
 private:
+	int objectnumber = 10;
 	std::random_device rd;
 	std::mt19937 rng;
 	std::uniform_real_distribution<float> xDist;
@@ -61,7 +63,7 @@ private:
 	Object object[30];
 	Fire fire[4];
 	Score s;
-	EnemyFire enemf[20];
+	EnemyFire enemf[30];
 	FrameTimer ft;
 	Stars star[599];
 	Upgrade upgrade[2];
@@ -72,7 +74,8 @@ private:
 	bool isOver = false;
 	bool Replay = false;
 	int DesCount = 0;
-	float adder = 80.0f;
+	float adderx = 100.0f;
+	float addery = 60.0f;
 	Sound start;
 	Sound endwin;
 	Sound plaser;
@@ -89,13 +92,14 @@ private:
 	bool loseGame = true;
 	bool wupgrade = true;
 	bool wdowngrade = true;
+	bool playerlost = false;
+	bool playerwon = false;
 	int stage = 1;
 	int framecounter = 0;
 	int framecounterlimit = 30;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
-	int upgrades[2];
+	int upgrades[2] = { -1 };
 	int upgradecounter = 2;
-	int objectnumber = 20;
 	bool acceptu = false;
 };

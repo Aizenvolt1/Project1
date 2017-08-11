@@ -328,6 +328,7 @@ void Game::UpdateModel()
 		backg.StopAll();
 		if (wnd.kbd.KeyIsPressed('R'))
 		{
+			stage = 1;
 			NewStage(10, 2);
 		}
 		background = true;
