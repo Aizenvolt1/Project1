@@ -105,8 +105,16 @@ Game::Game( MainWindow& wnd )
 		{
 			if (j == upgrades[i])
 			{
-				upgrade[i].SetPos(object[j].GetPos());
-				upgrade[i].SetVel(object[j].GetVel());
+				if (i >= 0 && i <= 1)
+				{
+					upgrade[i].SetPos(object[j].GetPos());
+					upgrade[i].SetVel(object[j].GetVel());
+				}
+				else
+				{
+					frupgrade[i-2].SetPos(object[j].GetPos());
+					frupgrade[i-2].SetVel(object[j].GetVel());
+				}
 			}
 		}
 	}
@@ -220,19 +228,45 @@ void Game::UpdateModel()
 		{
 			for (int i = 0; i < objectnumber; i++)
 			{
-				if (i == upgrades[j])
-					upgrade[j].Update(gfx, dt, object[i]);
-			}
-			if (upgrade[j].Player_Upgrade(player.GetPos()))
-			{
-				wupgrade = true;
-				upgrade[j].SetDes(true);
-				upgrade[j].SetPos(Vec2(5.00f, 5.00f));
-				defaultfcount++;
-				if (wupgrade)
+				if (j >= 0 && j <= 1)
 				{
-					upgradeup.Play();
-					wupgrade = false;
+					if (i == upgrades[j])
+						upgrade[j].Update(gfx, dt, object[i]);
+				}
+				else
+				{
+					if (i == upgrades[j])
+						frupgrade[j-2].Update(gfx, dt, object[i]);
+				}
+			}
+			if (j >= 0 && j <= 1)
+			{
+				if (upgrade[j].Player_Upgrade(player.GetPos()))
+				{
+					wupgrade = true;
+					upgrade[j].SetDes(true);
+					upgrade[j].SetPos(Vec2(5.00f, 5.00f));
+					defaultfcount++;
+					if (wupgrade)
+					{
+						upgradeup.Play();
+						wupgrade = false;
+					}
+				}
+			}
+			else if(j >= 2 && j <= 3)
+			{
+				if (frupgrade[j-2].Player_Upgrade(player.GetPos()))
+				{
+					wupgrade = true;
+					frupgrade[j-2].SetDes(true);
+					frupgrade[j-2].SetPos(Vec2(5.00f, 5.00f));
+					framecounterlimit -= 5;
+					if (wupgrade)
+					{
+						upgradeup.Play();
+						wupgrade = false;
+					}
 				}
 			}
 		}
@@ -28790,8 +28824,16 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 		{
 			if (j == upgrades[i])
 			{
-				upgrade[i].SetPos(object[j].GetPos());
-				upgrade[i].SetVel(object[j].GetVel());
+				if (i >= 0 && i <= 1)
+				{
+					upgrade[i].SetPos(object[j].GetPos());
+					upgrade[i].SetVel(object[j].GetVel());
+				}
+				else
+				{
+					frupgrade[i - 2].SetPos(object[j].GetPos());
+					frupgrade[i - 2].SetVel(object[j].GetVel());
+				}
 			}
 		}
 	}
@@ -28814,8 +28856,16 @@ void Game::ComposeFrame()
 		{
 			for (int j = 0; j < objectnumber; j++)
 			{
-				if (j == upgrades[i] && object[j].GetDes()==true && upgrade[i].GetDes() == false)
-					upgrade[i].DrawUpgrade(96, 96, 96, gfx);
+				if (i >= 0 && i <= 1)
+				{
+					if (j == upgrades[i] && object[j].GetDes() == true && upgrade[i].GetDes() == false)
+						upgrade[i].DrawUpgrade(96, 96, 96, gfx);
+				}
+				else if (i >= 2 && i <= 3)
+				{
+					if (j == upgrades[i] && object[j].GetDes() == true && frupgrade[i-2].GetDes() == false)
+						frupgrade[i-2].DrawFrUpgrade(0, 128, 255, gfx);
+				}
 			}
 		}
 		for (int i = 0; i < objectnumber; i++)

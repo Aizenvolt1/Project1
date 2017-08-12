@@ -33,6 +33,7 @@
 #include "Sound.h"
 #include "Stars.h"
 #include "Upgrade.h"
+#include "FrUpgrade.h"
 
 class Game
 {
@@ -67,6 +68,7 @@ private:
 	FrameTimer ft;
 	Stars star[599];
 	Upgrade upgrade[2];
+	FrUpgrade frupgrade[2];
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
@@ -99,8 +101,8 @@ private:
 	int framecounterlimit = 30;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
-	int upgrades[2] = {-1,-1};
-	int upgradecounter = 2;
+	int upgrades[4] = {-1,-1,-1,-1};
+	int upgradecounter = 4;
 	bool acceptu = false;
 	int randomizer = 0;
 };
