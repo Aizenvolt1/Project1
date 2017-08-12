@@ -376,17 +376,17 @@ void Game::UpdateModel()
 		{
 			if (stage == 1)
 			{
-				NewStage(10, 2);
+				NewStage(10, 4);
 				isOver = false;
 			}
 			if (stage == 2)
 			{
-				NewStage(20, 2);
+				NewStage(20, 4);
 				isOver = false;
 			}
 			if (stage == 3)
 			{
-				NewStage(30, 2);
+				NewStage(30, 4);
 				isOver = false;
 			}
 			if (stage == 4)
@@ -28746,6 +28746,7 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 	objectnumber = objectnumber1;
 	upgradecounter = upgradecounter1;
 	defaultfcount = 1;
+	framecounterlimit = 30;
 	endlose.StopAll();
 	isStarted = true;
 	isOver = false;
@@ -28816,7 +28817,10 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 		}
 		upgrades[i] = randomizer;
 		acceptu = false;
-		upgrade[i].SetDes(false);
+		if(i>=0 && i<=1)
+			upgrade[i].SetDes(false);
+		else if(i>=1 && i<=3)
+			frupgrade[i-2].SetDes(false);
 	}
 	for (int i = 0; i < upgradecounter; i++)
 	{
@@ -28829,7 +28833,7 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 					upgrade[i].SetPos(object[j].GetPos());
 					upgrade[i].SetVel(object[j].GetVel());
 				}
-				else
+				else if(i>=1 && i<=3)
 				{
 					frupgrade[i - 2].SetPos(object[j].GetPos());
 					frupgrade[i - 2].SetVel(object[j].GetVel());
