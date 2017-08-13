@@ -1,8 +1,5 @@
 #include "Object.h"
-#include "Fire.h"
 #include "Graphics.h"
-#include "Game.h"
-
 
 void Object::Init(const Vec2 &pos_in, float vx)
 {

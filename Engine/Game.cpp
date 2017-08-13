@@ -35,6 +35,7 @@ Game::Game( MainWindow& wnd )
 	vDist(1.2f,1.8f),
 	/*vDist(0.0f,0.0f),*/
 	pupgrade(0, objectnumber-1),
+	direction(1,2),
 	start(L"Sounds\\ready.wav"),
 	endwin(L"Sounds\\winsound.wav"),
 	plaser(L"Sounds\\plaser.wav"),
@@ -107,13 +108,13 @@ Game::Game( MainWindow& wnd )
 			{
 				if (i >= 0 && i <= 1)
 				{
-					upgrade[i].SetPos(object[j].GetPos());
-					upgrade[i].SetVel(object[j].GetVel());
+					upgrade[i].SetPos(boss.GetPos());
+					upgrade[i].SetVel(boss.GetVel());
 				}
 				else
 				{
-					frupgrade[i-2].SetPos(object[j].GetPos());
-					frupgrade[i-2].SetVel(object[j].GetVel());
+					frupgrade[i-2].SetPos(boss.GetPos());
+					frupgrade[i-2].SetVel(boss.GetVel());
 				}
 			}
 		}
@@ -204,110 +205,251 @@ void Game::UpdateModel()
 				permitfire = false;
 			}
 		}
-		for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
+		if (stage >= 1 && stage <= 3)
 		{
-			object[i].Update(gfx, dt);
-			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes() == false)
+			for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
 			{
-				enemf[i].SetCF(true);
-				elaserstart = true;
-				/*	enemf[i].firstf = true;*/
-				enemf[i].SetEFy(object[i].GetOy());
-			}
-			for (int y = 0; y < defaultfcount; y++)
-			{
-				if (object[i].Object_Collide(fire[y].GetPos()))
+				object[i].Update(gfx, dt);
+				if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes() == false)
 				{
-					object[i].SetDes(true);
-					fire[y].SetPos(Vec2(1.00f, 1.00f));
-					object[i].SetPos(Vec2(100.0f, 570.0f));
+					enemf[i].SetCF(true);
+					elaserstart = true;
+					/*	enemf[i].firstf = true;*/
+					enemf[i].SetEFy(object[i].GetOy());
+				}
+				for (int y = 0; y < defaultfcount; y++)
+				{
+					if (object[i].Object_Collide(fire[y].GetPos()))
+					{
+						object[i].SetDes(true);
+						fire[y].SetPos(Vec2(1.00f, 1.00f));
+						object[i].SetPos(Vec2(100.0f, 570.0f));
+					}
 				}
 			}
-		}
-		for (int j = 0; j < upgradecounter; j++)//Upgrade movement
-		{
-			for (int i = 0; i < objectnumber; i++)
+
+			for (int j = 0; j < upgradecounter; j++)//Upgrade movement
 			{
+				for (int i = 0; i < objectnumber; i++)
+				{
+					if (j >= 0 && j <= 1)
+					{
+						if (i == upgrades[j])
+							upgrade[j].Update(gfx, dt, object[i]);
+					}
+					else
+					{
+						if (i == upgrades[j])
+							frupgrade[j - 2].Update(gfx, dt, object[i]);
+					}
+				}
 				if (j >= 0 && j <= 1)
 				{
-					if (i == upgrades[j])
-						upgrade[j].Update(gfx, dt, object[i]);
-				}
-				else
-				{
-					if (i == upgrades[j])
-						frupgrade[j-2].Update(gfx, dt, object[i]);
-				}
-			}
-			if (j >= 0 && j <= 1)
-			{
-				if (upgrade[j].Player_Upgrade(player.GetPos()))
-				{
-					wupgrade = true;
-					upgrade[j].SetDes(true);
-					upgrade[j].SetPos(Vec2(5.00f, 5.00f));
-					defaultfcount++;
-					if (wupgrade)
+					if (upgrade[j].Player_Upgrade(player.GetPos()))
 					{
-						upgradeup.Play();
-						wupgrade = false;
+						wupgrade = true;
+						upgrade[j].SetDes(true);
+						upgrade[j].SetPos(Vec2(5.00f, 5.00f));
+						defaultfcount++;
+						if (wupgrade)
+						{
+							upgradeup.Play();
+							wupgrade = false;
+						}
+					}
+				}
+				else if (j >= 2 && j <= 3)
+				{
+					if (frupgrade[j - 2].Player_Upgrade(player.GetPos()))
+					{
+						wupgrade = true;
+						frupgrade[j - 2].SetDes(true);
+						frupgrade[j - 2].SetPos(Vec2(5.00f, 5.00f));
+						framecounterlimit -= 5;
+						if (wupgrade)
+						{
+							upgradeup.Play();
+							wupgrade = false;
+						}
 					}
 				}
 			}
-			else if(j >= 2 && j <= 3)
+			for (int i = 0; i < objectnumber; i++)//Objects fire movement
 			{
-				if (frupgrade[j-2].Player_Upgrade(player.GetPos()))
+				if (enemf[i].GetCF() == true)
 				{
-					wupgrade = true;
-					frupgrade[j-2].SetDes(true);
-					frupgrade[j-2].SetPos(Vec2(5.00f, 5.00f));
-					framecounterlimit -= 5;
-					if (wupgrade)
+					enemf[i].CreateFire(0, 0, 204, gfx);
+					if (elaserstart)
 					{
-						upgradeup.Play();
-						wupgrade = false;
+						elaser.Play(1.0f, 0.02f);
+						elaserstart = false;
+					}
+					enemf[i].UpdateEF(dt);
+					if (enemf[i].Player_Collide(player.GetPos()))
+					{
+						enemf[i].SetCF(false);
+						if (defaultfcount == 1)
+						{
+							if (loseGame)
+							{
+								endlose.Play();
+								loseGame = false;
+							}
+							isOver = true;
+							playerlost = true;
+						}
+						else if (defaultfcount > 1)
+						{
+							wdowngrade = true;
+							defaultfcount--;
+							if (wdowngrade)
+							{
+								upgradedown.Play();
+								wdowngrade = false;
+							}
+						}
+					}
+					if (enemf[i].GetEFy() > 570.0f)
+					{
+						enemf[i].SetCF(false);
 					}
 				}
 			}
 		}
-		for (int i = 0; i < objectnumber; i++)//Objects fire movement
+		if (stage == 4)//STAGE 4
 		{
-			if (enemf[i].GetCF() == true)
+			if (dirframe > 60)
 			{
-				enemf[i].CreateFire(0, 0, 204, gfx);
-				if (elaserstart)
+				changedir = direction(rng);
+				dirframe = 0;
+			}
+			dirframe++;
+			boss.Update(gfx,dt,changedir);
+			for (int i = 0; i < upgradecounter; i++)
+			{
+				for (int j = 0; j < 2; j++)
 				{
-					elaser.Play(1.0f, 0.02f);
-					elaserstart = false;
-				}
-				enemf[i].UpdateEF(dt);
-				if (enemf[i].Player_Collide(player.GetPos()))
-				{
-					enemf[i].SetCF(false);
-					if (defaultfcount == 1)
+					if (j == upgrades[i])
 					{
-						if (loseGame)
+						if (i >= 0 && i <= 1)
 						{
-							endlose.Play();
-							loseGame = false;
+							upgrade[i].SetPos(boss.GetPos());
+							upgrade[i].SetVel(boss.GetVel());
 						}
-						isOver = true;
-						playerlost = true;
-					}
-					else if (defaultfcount > 1)
-					{
-						wdowngrade = true;
-						defaultfcount--;
-						if (wdowngrade)
+						else
 						{
-							upgradedown.Play();
-							wdowngrade = false;
+							frupgrade[i - 2].SetPos(boss.GetPos());
+							frupgrade[i - 2].SetVel(boss.GetVel());
 						}
 					}
 				}
-				if (enemf[i].GetEFy() > 570.0f)
+			}
+			for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
+			{
+				if (((int)boss.GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)boss.GetOx() <= (int)enemf[i].GetEFx() + 2) && boss.GetDes() == false)
 				{
-					enemf[i].SetCF(false);
+					enemf[i].SetCF(true);
+					elaserstart = true;
+					/*	enemf[i].firstf = true;*/
+					enemf[i].SetEFy(object[i].GetOy());
+				}
+				for (int y = 0; y < defaultfcount; y++)
+				{
+					if (boss.Object_Collide(fire[y].GetPos()))
+					{
+						DesCount++;
+						BDesCount++;
+						fire[y].SetPos(Vec2(1.00f, 1.00f));
+					}
+				}
+			}
+			for (int j = 0; j < upgradecounter; j++)//Upgrade movement
+			{
+				for (int i = 0; i < objectnumber; i++)
+				{
+					if (j >= 0 && j <= 1)
+					{
+						upgrade[j].Update(gfx, dt, object[i]);
+						if (upgrades[j]==BDesCount)
+							upgrade[j].Update(gfx, dt, object[i]);
+					}
+					else
+					{
+						frupgrade[j - 2].Update(gfx, dt, object[i]);
+						if (upgrades[j] == BDesCount)
+							frupgrade[j - 2].Update(gfx, dt, object[i]);
+					}
+				}
+				if (j >= 0 && j <= 1)
+				{
+					if (upgrade[j].Player_Upgrade(player.GetPos()))
+					{
+						wupgrade = true;
+						upgrade[j].SetDes(true);
+						upgrade[j].SetPos(Vec2(5.00f, 5.00f));
+						defaultfcount++;
+						if (wupgrade)
+						{
+							upgradeup.Play();
+							wupgrade = false;
+						}
+					}
+				}
+				else if (j >= 2 && j <= 3)
+				{
+					if (frupgrade[j - 2].Player_Upgrade(player.GetPos()))
+					{
+						wupgrade = true;
+						frupgrade[j - 2].SetDes(true);
+						frupgrade[j - 2].SetPos(Vec2(5.00f, 5.00f));
+						framecounterlimit -= 5;
+						if (wupgrade)
+						{
+							upgradeup.Play();
+							wupgrade = false;
+						}
+					}
+				}
+			}
+			for (int i = 0; i < objectnumber; i++)//Objects fire movement
+			{
+				if (enemf[i].GetCF() == true)
+				{
+					enemf[i].CreateFire(0, 0, 204, gfx);
+					if (elaserstart)
+					{
+						elaser.Play(1.0f, 0.02f);
+						elaserstart = false;
+					}
+					enemf[i].UpdateEF(dt);
+					if (enemf[i].Player_Collide(player.GetPos()))
+					{
+						enemf[i].SetCF(false);
+						if (defaultfcount == 1)
+						{
+							if (loseGame)
+							{
+								endlose.Play();
+								loseGame = false;
+							}
+							isOver = true;
+							playerlost = true;
+						}
+						else if (defaultfcount > 1)
+						{
+							wdowngrade = true;
+							defaultfcount--;
+							if (wdowngrade)
+							{
+								upgradedown.Play();
+								wdowngrade = false;
+							}
+						}
+					}
+					if (enemf[i].GetEFy() > 570.0f)
+					{
+						enemf[i].SetCF(false);
+					}
 				}
 			}
 		}
@@ -341,6 +483,8 @@ void Game::UpdateModel()
 	if (isStarted == true)//Check if all objects are destroyed after the game has started
 	{
 		/*s.DrawScore(gfx);*/
+		if (stage < 4)
+		{
 		for (int i = 0; i < objectnumber; i++)
 		{
 			if (object[i].GetDes() == true)
@@ -348,6 +492,7 @@ void Game::UpdateModel()
 		}
 		if (DesCount < objectnumber)
 			DesCount = 0;
+		}
 		if (DesCount == objectnumber)
 		{
 			if (winGame)
@@ -390,6 +535,18 @@ void Game::UpdateModel()
 				isOver = false;
 			}
 			if (stage == 4)
+			{
+				objectnumber = 2;
+				upgradecounter = 4;
+				defaultfcount = 1;
+				framecounterlimit = 30;
+				endlose.StopAll();
+				isStarted = true;
+				isOver = false;
+				winGame = true;
+				DesCount = 0;
+			}
+			if (stage == 5)
 			{
 				playerwon = true;
 				isOver = true;
@@ -28872,13 +29029,22 @@ void Game::ComposeFrame()
 				}
 			}
 		}
-		for (int i = 0; i < objectnumber; i++)
+		if (stage < 4)
 		{
-			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
-				object[i].DrawTriangle(0, 0, 60, gfx);
-			//else if ((object[i].GetDes() == false && enemf[i].firstf == true))
-			//	object[i].DrawBox(0, 0, 255, gfx);
-			player.DrawTriangle(60, 0,0 , gfx);
+			for (int i = 0; i < objectnumber; i++)
+			{
+				if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
+					object[i].DrawTriangle(0, 0, 60, gfx);
+				//else if ((object[i].GetDes() == false && enemf[i].firstf == true))
+				//	object[i].DrawBox(0, 0, 255, gfx);
+			}
+		}
+		player.DrawTriangle(60, 0,0 , gfx);
+		
+		if (stage == 4)
+		{
+			if(DesCount<objectnumber)
+			boss.DrawTriangle(0, 0, 60, gfx);
 		}
 	}
 	if ((isOver==true && playerwon==true) || (isOver==true && playerlost==true))//Draw End Screen

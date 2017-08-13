@@ -54,7 +54,6 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,i
 			isOver = true;
 			pos = Vec2(400.0f, 550.0f);
 		}
-		Descount = 0;
 	}
 }
  

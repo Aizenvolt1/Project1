@@ -34,6 +34,7 @@
 #include "Stars.h"
 #include "Upgrade.h"
 #include "FrUpgrade.h"
+#include "Boss.h"
 
 class Game
 {
@@ -56,6 +57,7 @@ private:
 	std::uniform_real_distribution<float> yDist;
 	std::uniform_real_distribution<float> vDist;
 	std::uniform_int_distribution<int> pupgrade;
+	std::uniform_int_distribution<int> direction;
 	MainWindow& wnd;
 	Graphics gfx;
 	bool collide = false;
@@ -69,6 +71,7 @@ private:
 	Stars star[599];
 	Upgrade upgrade[2];
 	FrUpgrade frupgrade[2];
+	Boss boss;
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
@@ -76,6 +79,7 @@ private:
 	bool isOver = false;
 	bool Replay = false;
 	int DesCount = 0;
+	int BDesCount = 0;
 	float adderx = 100.0f;
 	float addery = 60.0f;
 	Sound start;
@@ -99,6 +103,8 @@ private:
 	int stage = 1;
 	int framecounter = 0;
 	int framecounterlimit = 30;
+	int dirframe = 0;
+	int changedir;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
 	int upgrades[4] = {-1,-1,-1,-1};
