@@ -37,7 +37,7 @@ float Fire::GetFy() const
 	return pos.y;
 }
 
-bool Fire::GetBor() 
+bool Fire::GetBor() const
 {
 	return firebor;
 }

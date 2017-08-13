@@ -11,7 +11,7 @@ public:
 	void SetPos(const Vec2 &pos_in);
 	float GetFx() const;
 	float GetFy() const;
-	bool GetBor();
+	bool GetBor() const;
 	void SetBor(bool fired);
 	void FireUpdate(float dt);
 private:
