@@ -30,7 +30,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	rng(rd()),
-	xDist(760.0f,761.0f),
+	xDist(10.0f,790.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f),
 	sDist(1.0f,799.0f),
