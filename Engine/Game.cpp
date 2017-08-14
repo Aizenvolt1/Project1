@@ -138,7 +138,7 @@ void Game::UpdateModel()
 			backg.Play();
 			background = false;
 		}
-		if (wnd.kbd.KeyIsPressed('V') && fcount < defaultfcount && permitfire == false && DesCount < objectnumber)//Player Controls
+		if (wnd.kbd.KeyIsPressed(VK_SPACE) && fcount < defaultfcount && permitfire == false && DesCount < objectnumber)//Player Controls
 		{
 			if (fcount >= 0 && fcount < defaultfcount)
 			{
