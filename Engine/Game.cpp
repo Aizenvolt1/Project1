@@ -274,7 +274,7 @@ void Game::UpdateModel()
 		{
 			if (enemf[i].GetCF() == true)
 			{
-				enemf[i].CreateFire(0, 0, 204, gfx);
+				enemf[i].CreateFire(51, 153, 255, gfx);
 				if (elaserstart)
 				{
 					elaser.Play(1.0f, 0.02f);
@@ -28875,10 +28875,10 @@ void Game::ComposeFrame()
 		for (int i = 0; i < objectnumber; i++)
 		{
 			if (object[i].GetDes() == false && enemf[i].firstf == false)//Check if Box is Desstroyed and if yes dont draw box.
-				object[i].DrawTriangle(0, 0, 60, gfx);
+				object[i].DrawTriangle(0, 128, 255, gfx);
 			//else if ((object[i].GetDes() == false && enemf[i].firstf == true))
 			//	object[i].DrawBox(0, 0, 255, gfx);
-			player.DrawTriangle(60, 0,0 , gfx);
+			player.DrawTriangle(60,0,0,gfx);
 		}
 	}
 	if ((isOver==true && playerwon==true) || (isOver==true && playerlost==true))//Draw End Screen
