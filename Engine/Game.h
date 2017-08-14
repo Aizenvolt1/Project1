@@ -55,6 +55,7 @@ private:
 	std::uniform_real_distribution<float> xDist;
 	std::uniform_real_distribution<float> yDist;
 	std::uniform_real_distribution<float> vDist;
+	std::uniform_real_distribution<float> sDist;
 	std::uniform_int_distribution<int> pupgrade;
 	MainWindow& wnd;
 	Graphics gfx;
@@ -97,12 +98,15 @@ private:
 	bool playerlost = false;
 	bool playerwon = false;
 	int stage = 1;
-	int framecounter = 0;
-	int framecounterlimit = 30;
+	float framecounter = 0.0f;
+	float framecounterlimit = 30.0f;
 	int fireborcounter = 0;
 	int defaultfcount = 1;
 	int upgrades[4] = {-1,-1,-1,-1};
 	int upgradecounter = 4;
+	float enemfcd[30];
 	bool acceptu = false;
 	int randomizer = 0;
+	float pausetimer = 0.0f;
+	bool pause = false;
 };

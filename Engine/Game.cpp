@@ -30,9 +30,10 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	rng(rd()),
-	xDist(10.0f,790.0f),
+	xDist(760.0f,761.0f),
 	yDist(10,10),
 	vDist(1.2f,1.8f),
+	sDist(1.0f,799.0f),
 	/*vDist(0.0f,0.0f),*/
 	pupgrade(0, objectnumber-1),
 	start(L"Sounds\\ready.wav"),
@@ -78,7 +79,7 @@ Game::Game( MainWindow& wnd )
 	}
 	for (int i = 0; i < 599; i++)
 	{
-		star[i].SetPos(Vec2(xDist(rng), float(i+1)));
+		star[i].SetPos(Vec2(sDist(rng), float(i+1)));
 	}
 	for (int i=0; i < upgradecounter; i++)
 	{
@@ -118,6 +119,10 @@ Game::Game( MainWindow& wnd )
 			}
 		}
 	}
+	for (int i = 0; i < 30; i++)
+	{
+		enemfcd[i] = 0.0f;
+	}
 }
 
 void Game::Go()
@@ -131,7 +136,20 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	if (isStarted == true && isOver == false)
+	if (wnd.kbd.KeyIsPressed('P') && (int)pausetimer == 0)
+	{
+		pause = true;
+	}
+	else if (wnd.kbd.KeyIsPressed('P') && (int)pausetimer > 15)
+	{
+		pause = false;
+		pausetimer = -15.0f;
+	}
+	if (pause == true)
+		pausetimer+=1.0f*dt*60.0f;
+	if ((int)pausetimer < 0.0f)
+		pausetimer+=1.0f*dt*60.0f;
+	if (isStarted == true && isOver == false && pause==false)
 	{
 		if (background)
 		{
@@ -143,7 +161,6 @@ void Game::UpdateModel()
 			if (fcount >= 0 && fcount < defaultfcount)
 			{
 				fcount1 = fcount;
-				player.SetInhi(true);
 				fire[fcount1].SetPos(player.GetPos());
 				permitfire = true;
 			}
@@ -157,36 +174,34 @@ void Game::UpdateModel()
 		player.UpdateP(wnd.kbd, gfx, dt, DesCount, stage, objectnumber, isOver);
 		if (permitfire == true)
 		{
-			framecounter++;
+			framecounter+=1.0f*dt*60.0f;
 		}
-		if (player.GetInhi() == true)
+
+		for (int i = 0; i < fcount1 + 1; i++)
 		{
-			for (int i = 0; i < fcount1 + 1; i++)
+			fire[i].Border_Collide(gfx);//Fire hit Border Check
+			fire[i].DrawFire(204, 0, 0, fire[i].GetFx(), fire[i].GetFy(), gfx);//Draw Fire Check
+			if (plaserstart)
 			{
-				fire[i].Border_Collide(gfx);//Fire hit Border Check
-				fire[i].DrawFire(204, 0, 0, fire[i].GetFx(), fire[i].GetFy(), gfx);//Draw Fire Check
-				if (plaserstart)
-				{
-					plaser.Play(1.0f, 0.1f);
-					plaserstart = false;
-				}
+				plaser.Play(1.0f, 0.1f);
+				plaserstart = false;
 			}
-			for (int i = 0; i < defaultfcount; i++)//Fire reload check
+		}
+		for (int i = 0; i < defaultfcount; i++)//Fire reload check
+		{
+			if (fire[i].GetBor() == true)
 			{
-				if (fire[i].GetBor() == true)
-				{
-					fireborcounter++;
-				}
+				fireborcounter++;
 			}
-			if (fireborcounter == defaultfcount)
-			{
-				fcount = 0;
-				fcount1 = 0;
-			}
-			else
-			{
-				fireborcounter = 0;
-			}
+		}
+		if (fireborcounter == defaultfcount)
+		{
+			fcount = 0;
+			fcount1 = 0;
+		}
+		else
+		{
+			fireborcounter = 0;
 		}
 		for (int i = 0; i < defaultfcount; i++)//Fire movement
 		{
@@ -194,20 +209,20 @@ void Game::UpdateModel()
 			{
 				fire[i].FireUpdate(dt);
 			}
-			if (framecounter > framecounterlimit*dt*60.0f && defaultfcount > 1)
+			if ((int)framecounter > (int)framecounterlimit*dt*60.0f && defaultfcount > 1)
 			{
 				permitfire = false;
-				framecounter = 0;
+				framecounter = 0.0f;
 			}
 			else if (fire[i].GetBor() == true && defaultfcount == 1)
 			{
 				permitfire = false;
 			}
 		}
-		for (int i = 0; i < objectnumber; i++)//Object movement and Border collide Check and Fire Creation and Object Destruction check
+		for (int i = 0; i < objectnumber; i++)//Object movement/Border collide Check/Fire Creation/Object Destruction check
 		{
 			object[i].Update(gfx, dt);
-			if (((int)object[i].GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes() == false)
+			if ((((int)object[i].GetOx() >= (int)enemf[i].GetEFx() - 2 && (int)object[i].GetOx() <= (int)enemf[i].GetEFx() + 2) && object[i].GetDes() == false) && (int)enemfcd[i]==0)
 			{
 				enemf[i].SetCF(true);
 				elaserstart = true;
@@ -261,7 +276,7 @@ void Game::UpdateModel()
 					wupgrade = true;
 					frupgrade[j-2].SetDes(true);
 					frupgrade[j-2].SetPos(Vec2(5.00f, 5.00f));
-					framecounterlimit -= 5;
+					framecounterlimit -= 5.0f*dt*60.0f;
 					if (wupgrade)
 					{
 						upgradeup.Play();
@@ -269,6 +284,13 @@ void Game::UpdateModel()
 					}
 				}
 			}
+		}
+		for (int i = 0; i < objectnumber; i++)
+		{
+			if (enemf[i].GetCF() == true)
+				enemfcd[i]+=1.0f*dt*60.0f;
+			if (((int)enemfcd[i] > 120) || (enemf[i].GetCF() == false && (int)enemfcd[i] > 0))
+				enemfcd[i] = 0.0f;
 		}
 		for (int i = 0; i < objectnumber; i++)//Objects fire movement
 		{
@@ -28746,7 +28768,7 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 	objectnumber = objectnumber1;
 	upgradecounter = upgradecounter1;
 	defaultfcount = 1;
-	framecounterlimit = 30;
+	framecounterlimit = 30.0f;
 	endlose.StopAll();
 	isStarted = true;
 	isOver = false;

@@ -76,13 +76,3 @@ float Player::GetPy() const
 	return pos.y;
 }
 
-void Player::SetInhi(bool inhi)
-{
-	inhibitV=inhi;
-}
-
-bool Player::GetInhi() const
-{
-	return inhibitV;
-}
-
