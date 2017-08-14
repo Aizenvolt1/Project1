@@ -9,7 +9,7 @@ public:
 	bool Object_Collide(Vec2 &pos_in);
 	void Update(Graphics &gfx,float dt);
 	void Border_Collide(float &x, float &y, float &vx,Graphics &gfx);
-	void DrawTriangle(int r,int g, int b, Graphics &gfx);
+	void DrawTriangle(int,int, int, Graphics &gfx);
 	Vec2 GetPos() const;
 	Vec2 GetVel() const;
 	void SetPos(const Vec2 &pos_in);
