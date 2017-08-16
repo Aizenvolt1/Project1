@@ -113,7 +113,7 @@ void Object::Border_Collide(float & x, float & y, float & vx,Graphics &gfx)
 	}
 	if (pos.x - 10.0f < 0.0f)
 	{
-		if (pos.y < 500.0f)
+		if (pos.y < 350.0f)
 		{
 			pos.y += 30.0f;
 			pos.x = 10.0f;

@@ -18,7 +18,7 @@ void Player::DrawTriangle(int r, int g, int b,Graphics &gfx)
 	}
 }
 
-void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,int &stage,int &objectnumber,bool &isOver)
+void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,int &stage,int &objectnumber,int &gamestate)
 {
 	if (Descount < objectnumber)
 	{
@@ -51,7 +51,7 @@ void Player::UpdateP(const Keyboard & kbd,Graphics &gfx,float dt,int &Descount,i
 		if (pos.y - 10 < 0)
 		{
 			stage++;
-			isOver = true;
+			gamestate = 3;
 			pos = Vec2(400.0f, 550.0f);
 		}
 		Descount = 0;

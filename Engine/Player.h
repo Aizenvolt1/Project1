@@ -6,7 +6,7 @@ class Player
 {
 public:
 	void DrawTriangle(int r, int g, int b, Graphics &gfx);
-	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,int& stage,int &objectnumber,bool &isOver);
+	void UpdateP(const Keyboard &kbd,Graphics &gfx,float dt,int &Descount,int& stage,int &objectnumber,int &gamestate);
 	Vec2 GetPos() const;
 	float GetPx() const;
 	float GetPy() const;

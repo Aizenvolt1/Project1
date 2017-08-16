@@ -73,8 +73,6 @@ private:
 	int fcount = 0;
 	int fcount1 = 0;
 	bool permitfire = false;
-	bool isStarted = false;
-	bool isOver = false;
 	bool Replay = false;
 	int DesCount = 0;
 	float adderx = 100.0f;
@@ -109,4 +107,5 @@ private:
 	int randomizer = 0;
 	float pausetimer = 0.0f;
 	bool pause = false;
+	int gamestate = 1;
 };

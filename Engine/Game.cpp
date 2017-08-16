@@ -149,7 +149,7 @@ void Game::UpdateModel()
 		pausetimer+=1.0f*dt*60.0f;
 	if ((int)pausetimer < 0.0f)
 		pausetimer+=1.0f*dt*60.0f;
-	if (isStarted == true && isOver == false && pause==false)
+	if (gamestate==2 && pause==false) 
 	{
 		if (background)
 		{
@@ -171,7 +171,7 @@ void Game::UpdateModel()
 			}
 
 		}
-		player.UpdateP(wnd.kbd, gfx, dt, DesCount, stage, objectnumber, isOver);
+		player.UpdateP(wnd.kbd, gfx, dt, DesCount, stage, objectnumber,gamestate);
 		if (permitfire == true)
 		{
 			framecounter+=1.0f*dt*60.0f;
@@ -313,7 +313,7 @@ void Game::UpdateModel()
 							endlose.Play();
 							loseGame = false;
 						}
-						isOver = true;
+						gamestate = 3;
 						playerlost = true;
 					}
 					else if (defaultfcount > 1)
@@ -338,7 +338,7 @@ void Game::UpdateModel()
 			star[y].Update(gfx, dt);
 		}
 	}
-	else if (isStarted == false && isOver == false)//Check if game is not Started
+	else if (gamestate==1)//Check if game is not Started
 	{
 		if (firstGameStart)
 		{
@@ -348,7 +348,7 @@ void Game::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_RETURN))
 		{
 			start.StopAll();
-			isStarted = true;
+			gamestate = 2;
 			for (int i = 0; i < objectnumber; i++)
 			{
 				object[i].SetDes(false);
@@ -360,7 +360,7 @@ void Game::UpdateModel()
 			loseGame = true;
 		}
 	}
-	if (isStarted == true)//Check if all objects are destroyed after the game has started
+	if (gamestate==2)//Check if all objects are destroyed after the game has started
 	{
 		/*s.DrawScore(gfx);*/
 		for (int i = 0; i < objectnumber; i++)
@@ -380,10 +380,10 @@ void Game::UpdateModel()
 		}
 
 	}
-	if (isOver == true)//Check if game is over and if yes enable R to replay
+	if (gamestate==3)//Check if game is over and if yes enable R to replay
 	{
 		backg.StopAll();
-		if (playerlost == true)
+		if (playerlost == true || playerwon==true)
 		{
 			if (wnd.kbd.KeyIsPressed('R'))
 			{
@@ -399,22 +399,22 @@ void Game::UpdateModel()
 			if (stage == 1)
 			{
 				NewStage(10, 4);
-				isOver = false;
+				gamestate = 2;
 			}
 			if (stage == 2)
 			{
 				NewStage(20, 4);
-				isOver = false;
+				gamestate = 2;
 			}
 			if (stage == 3)
 			{
 				NewStage(30, 4);
-				isOver = false;
+				gamestate = 2;
 			}
 			if (stage == 4)
 			{
 				playerwon = true;
-				isOver = true;
+				gamestate = 3;
 			}
 		}
 	}
@@ -28770,8 +28770,7 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 	defaultfcount = 1;
 	framecounterlimit = 30.0f;
 	endlose.StopAll();
-	isStarted = true;
-	isOver = false;
+	gamestate = 2;
 	adderx = 100.0f;
 	addery = 60.0f;
 	DesCount = 0;
@@ -28868,11 +28867,11 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 }
 void Game::ComposeFrame()
 {
-	if (!isStarted)//Draw Title Screen
+	if (gamestate==1)//Draw Title Screen
 	{
 		DrawTitleScreen(325, 211);
 	}
-	else if (isStarted && isOver==false)//Draw Boxes
+	else if (gamestate==2)//Draw Boxes
 	{
 		for (int y = 0; y <599; y++)
 		{
@@ -28903,7 +28902,7 @@ void Game::ComposeFrame()
 			player.DrawTriangle(60,0,0,gfx);
 		}
 	}
-	if ((isOver==true && playerwon==true) || (isOver==true && playerlost==true))//Draw End Screen
+	if ((gamestate==3 && playerwon==true) || (gamestate==3 && playerlost==true))//Draw End Screen
 	{
 		DrawGameOver(358, 268);
 		player.SetPos(Vec2(400.0f, 550.0f));
