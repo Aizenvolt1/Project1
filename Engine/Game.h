@@ -48,6 +48,7 @@ private:
 	void DrawTitleScreen(int x, int y);
 	void DrawGameOver(int x, int y);
 	void NewStage(int objectnumber1, int upgradecounter1);
+	void ObjectFireMov(EnemyFire& enemf,float dt,int i);
 private:
 	int objectnumber = 10;
 	std::random_device rd;

@@ -251,7 +251,7 @@ void Game::UpdateModel()
 				else
 				{
 					if (i == upgrades[j])
-						frupgrade[j-2].Update(gfx, dt, object[i]);
+						frupgrade[j - 2].Update(gfx, dt, object[i]);
 				}
 			}
 			if (j >= 0 && j <= 1)
@@ -269,13 +269,13 @@ void Game::UpdateModel()
 					}
 				}
 			}
-			else if(j >= 2 && j <= 3)
+			else if (j >= 2 && j <= 3)
 			{
-				if (frupgrade[j-2].Player_Upgrade(player.GetPos()))
+				if (frupgrade[j - 2].Player_Upgrade(player.GetPos()))
 				{
 					wupgrade = true;
-					frupgrade[j-2].SetDes(true);
-					frupgrade[j-2].SetPos(Vec2(5.00f, 5.00f));
+					frupgrade[j - 2].SetDes(true);
+					frupgrade[j - 2].SetPos(Vec2(5.00f, 5.00f));
 					framecounterlimit -= 5.0f*dt*60.0f;
 					if (wupgrade)
 					{
@@ -285,57 +285,13 @@ void Game::UpdateModel()
 				}
 			}
 		}
-		for (int i = 0; i < objectnumber; i++)
+		for (int i = 0; i < objectnumber; i++)//Object fire movement
 		{
-			if (enemf[i].GetCF() == true)
-				enemfcd[i]+=1.0f*dt*60.0f;
-			if (((int)enemfcd[i] > 120) || (enemf[i].GetCF() == false && (int)enemfcd[i] > 0))
-				enemfcd[i] = 0.0f;
+			ObjectFireMov(enemf[i], dt,i);
 		}
-		for (int i = 0; i < objectnumber; i++)//Objects fire movement
+		for (int i = 0; i < 599; i++)
 		{
-			if (enemf[i].GetCF() == true)
-			{
-				enemf[i].CreateFire(51, 153, 255, gfx);
-				if (elaserstart)
-				{
-					elaser.Play(1.0f, 0.02f);
-					elaserstart = false;
-				}
-				enemf[i].UpdateEF(dt);
-				if (enemf[i].Player_Collide(player.GetPos()))
-				{
-					enemf[i].SetCF(false);
-					if (defaultfcount == 1)
-					{
-						if (loseGame)
-						{
-							endlose.Play();
-							loseGame = false;
-						}
-						gamestate = 3;
-						playerlost = true;
-					}
-					else if (defaultfcount > 1)
-					{
-						wdowngrade = true;
-						defaultfcount--;
-						if (wdowngrade)
-						{
-							upgradedown.Play();
-							wdowngrade = false;
-						}
-					}
-				}
-				if (enemf[i].GetEFy() > 570.0f)
-				{
-					enemf[i].SetCF(false);
-				}
-			}
-		}
-		for (int y = 0; y < 599; y++)
-		{
-			star[y].Update(gfx, dt);
+			star[i].Update(gfx, dt);
 		}
 	}
 	else if (gamestate==1)//Check if game is not Started
@@ -28864,6 +28820,51 @@ void Game::NewStage(int objectnumber1,int upgradecounter1)
 	}
 	fcount = 0;
 	fcount1 = 0;
+}
+void Game::ObjectFireMov(EnemyFire& enemf,float dt,int i)
+{
+	if (enemf.GetCF() == true)
+		enemfcd[i] += 1.0f*dt*60.0f;
+	if (((int)enemfcd[i] > 120) || (enemf.GetCF() == false && (int)enemfcd[i] > 0))
+		enemfcd[i] = 0.0f;
+	if (enemf.GetCF() == true)
+	{
+		enemf.CreateFire(51, 153, 255, gfx);
+		if (elaserstart)
+		{
+			elaser.Play(1.0f, 0.02f);
+			elaserstart = false;
+		}
+		enemf.UpdateEF(dt);
+		if (enemf.Player_Collide(player.GetPos()))
+		{
+			enemf.SetCF(false);
+			if (defaultfcount == 1)
+			{
+				if (loseGame)
+				{
+					endlose.Play();
+					loseGame = false;
+				}
+				gamestate = 3;
+				playerlost = true;
+			}
+			else if (defaultfcount > 1)
+			{
+				wdowngrade = true;
+				defaultfcount--;
+				if (wdowngrade)
+				{
+					upgradedown.Play();
+					wdowngrade = false;
+				}
+			}
+		}
+		if (enemf.GetEFy() > 570.0f)
+		{
+			enemf.SetCF(false);
+		}
+	}
 }
 void Game::ComposeFrame()
 {
