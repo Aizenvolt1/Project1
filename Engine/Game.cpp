@@ -260,7 +260,7 @@ void Game::UpdateModel()
 				{
 					wupgrade = true;
 					upgrade[j].SetDes(true);
-					upgrade[j].SetPos(Vec2(5.00f, 5.00f));
+					upgrade[j].SetPos(Vec2(5.00f, 595.00f));
 					defaultfcount++;
 					if (wupgrade)
 					{
@@ -275,7 +275,7 @@ void Game::UpdateModel()
 				{
 					wupgrade = true;
 					frupgrade[j - 2].SetDes(true);
-					frupgrade[j - 2].SetPos(Vec2(5.00f, 5.00f));
+					frupgrade[j - 2].SetPos(Vec2(5.00f, 595.00f));
 					framecounterlimit -= 5.0f*dt*60.0f;
 					if (wupgrade)
 					{

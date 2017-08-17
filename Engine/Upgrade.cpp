@@ -29,7 +29,7 @@ void Upgrade::Border_Collide(float & x, float & y, float & vx, Graphics & gfx)
 {
 	if (pos.x + 10.0f >= (float)gfx.ScreenWidth)
 	{
-		if (pos.y < 500.0f)
+		if (pos.y < 250.0f)
 		{
 			pos.y += 30.0;
 			pos.x = (float)gfx.ScreenWidth - 11.0f;
@@ -43,7 +43,7 @@ void Upgrade::Border_Collide(float & x, float & y, float & vx, Graphics & gfx)
 	}
 	if (pos.x - 10.0f < 0.0f)
 	{
-		if (pos.y < 500.0f)
+		if (pos.y < 250.0f)
 		{
 			pos.y += 30.0f;
 			pos.x = 10.0f;
