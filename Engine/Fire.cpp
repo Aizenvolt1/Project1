@@ -1,7 +1,7 @@
 #include "Fire.h"
 #include "Player.h"
 #include "Graphics.h"
-/*Change*/
+
 void Fire::DrawFire(int r, int g, int b,float x,float y,Graphics &gfx)
 {
 	const int in_x = (int)x;
